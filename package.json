@@ -1,0 +1,17 @@
+{
+  "name": "fronteira-da-esperanca",
+  "version": "21.0.0",
+  "description": "Jogo sério de gestão humanitária sobre a migração venezuelana em Roraima (TCC, Ciência da Computação, UFRR).",
+  "private": true,
+  "scripts": {
+    "build": "node tools/build.js",
+    "test": "node testes/testes.js && node testes/scan_es.js && node testes/testes_es.js"
+  },
+  "author": "Mateus Moraes de Moura",
+  "dependencies": {
+    "acorn": "^8.12.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

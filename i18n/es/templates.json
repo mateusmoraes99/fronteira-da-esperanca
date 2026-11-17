@@ -1,0 +1,34 @@
+{
+ "<div style=\"text-align:center;margin-top:8px;font-size:18px;font-weight:700;color:var(--gold)\">+${pts} pontos</div>": [
+  [
+   "pontos</div>",
+   "puntos</div>"
+  ]
+ ],
+ "Dia ${G.dia} concluído! Você tem ${G.acolhidos} pessoas acolhidas. Escolha um recurso:": [
+  [
+   "Dia ${G.dia} concluído! Você tem ${G.acolhidos} pessoas acolhidas. Escolha um recurso:",
+   "¡Día ${G.dia} completado! Tienes ${G.acolhidos} personas acogidas. Elige un recurso:"
+  ]
+ ],
+ "Dia ${save.G.dia} · ${save.G.pts}pts": [
+  [
+   "Dia ${save.G.dia}",
+   "Día ${save.G.dia}"
+  ]
+ ],
+ "<div style=\"display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #e2e8f0;${i===0?'background:rgba(200,148,10,.08);border-radius:8px;':''}\">\n      <div style=\"font-size:22px;width:32px;text-align:center;\">${rankIcons[i]}</div>\n      <div style=\"flex:1;\">\n        <div style=\"display:flex;align-items:center;gap:8px;margin-bottom:4px;\">\n          <span style=\"font-size:18px;font-weight:700;color:${cor}\">${r.grade}</span>\n          <span style=\"font-size:13px;font-weight:600;\">${r.pts.toLocaleString('pt-BR')} pts</span>\n          <span style=\"font-size:11px;color:var(--muted);background:#f1f5f9;padding:2px 8px;border-radius:4px;\">${r.titulo}</span>\n        </div>\n        <div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;\">\n          <div style=\"font-size:10px;text-align:center;background:rgba(26,110,58,.15);border-radius:4px;padding:4px;\">\n            <div style=\"color:#4aaa70;font-size:13px;font-weight:700;\">${r.acolhidos}</div>\n            <div style=\"color:var(--muted);\">acolhidos</div>\n          </div>\n          <div style=\"font-size:10px;text-align:center;background:rgba(180,40,40,.15);border-radius:4px;padding:4px;\">\n            <div style=\"color:#e06060;font-size:13px;font-weight:700;\">${r.perdidos}</div>\n            <div style=\"color:var(--muted);\">perdidos</div>\n          </div>\n          <div style=\"font-size:10px;text-align:center;background:#f1f5f9;border-radius:4px;padding:4px;\">\n            <div style=\"color:#475569;font-size:13px;font-weight:700;\">${encaminhados}</div>\n            <div style=\"color:var(--muted);\">encaminh.</div>\n          </div>\n          <div style=\"font-size:10px;text-align:center;background:rgba(30,80,160,.15);border-radius:4px;padding:4px;\">\n            <div style=\"color:#6090e0;font-size:13px;font-weight:700;\">D${r.dias}</div>\n            <div style=\"color:var(--muted);\">${data}</div>\n          </div>\n        </div>\n      </div>\n    </div>": [
+  [
+   ">acolhidos<",
+   ">acogidos<"
+  ],
+  [
+   ">encaminh.<",
+   ">derivados<"
+  ],
+  [
+   "toLocaleString('pt-BR')",
+   "toLocaleString('es')"
+  ]
+ ]
+}

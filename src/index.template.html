@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Fronteira da Esperança</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════
+   BASE
+════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Inter',sans-serif;background:#f0f4f8;color:#1e293b;display:flex;flex-direction:column;}
+
+/* ════════════════════════════════════════════
+   CORES — extraídas pixel a pixel das imagens
+════════════════════════════════════════════ */
+:root{
+  /* Azul-marinho do header/sidebar */
+  --navy:#1a2744;
+  --navy2:#1e2f52;
+  --navy3:#243460;
+
+  /* Fundo das telas de caso/relatório */
+  --bg-light:#f0f4f8;
+  --bg-white:#ffffff;
+  --bg-card:#ffffff;
+  --bg-sidebar:#f8fafc;
+
+  /* Bordas */
+  --border:#e2e8f0;
+  --border2:#cbd5e1;
+
+  /* Texto */
+  --txt-dark:#0f172a;
+  --txt-main:#1e293b;
+  --txt-muted:#64748b;
+  --txt-light:#94a3b8;
+  --muted:#64748b;
+
+  /* Cores de acento */
+  --green:#16a34a;    --green-light:#dcfce7;  --green-mid:#22c55e;
+  --blue:#2563eb;     --blue-light:#dbeafe;   --blue-mid:#3b82f6;
+  --amber:#d97706;    --amber-light:#fef3c7;  --amber-mid:#f59e0b;
+  --red:#dc2626;      --red-light:#fee2e2;    --red-mid:#ef4444;
+  --purple:#7c3aed;   --purple-light:#ede9fe;
+
+  /* Pills do header */
+  --pill-bg:rgba(255,255,255,.12);
+  --pill-border:rgba(255,255,255,.2);
+}
+
+/* ════════════════════════════════════════════
+   OVERLAYS
+════════════════════════════════════════════ */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:900;padding:16px;backdrop-filter:blur(3px);}
+.ov.off{display:none;}
+.modal{background:#fff;border-radius:16px;padding:28px;max-width:520px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.modal h2{font-size:20px;font-weight:800;margin-bottom:8px;text-align:center;color:var(--txt-dark);}
+.modal p{font-size:13px;color:var(--txt-muted);line-height:1.75;margin-bottom:12px;text-align:center;}
+.modal ul{text-align:left;font-size:13px;line-height:2;list-style:none;margin-bottom:12px;}
+.modal ul li::before{content:'→ ';color:var(--blue);}
+.mbtn{padding:11px 22px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;margin:4px;font-family:'Inter',sans-serif;transition:all .15s;}
+.mbtn:hover{filter:brightness(1.1);}
+.mbtn-sec{background:#f1f5f9;color:var(--txt-main);border:1px solid var(--border2);}
+.mbtn-danger{background:#fef2f2;color:var(--red);border:1px solid #fecaca;}
+
+/* ════════════════════════════════════════════
+   MENU PRINCIPAL
+════════════════════════════════════════════ */
+#tela-menu{
+  position:fixed;inset:0;z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#0f172a 0%,#1a2744 40%,#1e3a6e 100%);
+}
+#tela-menu.off{display:none;}
+.menu-wrap{display:flex;flex-direction:column;align-items:center;width:360px;padding:24px;}
+.menu-logo-box{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.menu-logo-icon{font-size:38px;}
+.menu-logo-title{font-size:16px;font-weight:900;color:#fff;letter-spacing:.3px;}
+.menu-logo-sub{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.3px;margin-top:1px;}
+.menu-sep{width:100%;height:1px;background:rgba(255,255,255,.1);margin:16px 0;}
+.menu-tagline{font-size:12px;color:rgba(255,255,255,.5);text-align:center;line-height:1.7;margin-bottom:22px;}
+.menu-btns{width:100%;display:flex;flex-direction:column;gap:8px;}
+.menu-btn{
+  width:100%;padding:14px 18px;border:none;border-radius:12px;
+  font-size:14px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:12px;
+  font-family:'Inter',sans-serif;transition:transform .13s,filter .13s;
+}
+.menu-btn:hover{transform:translateX(5px);}
+.menu-btn:active{transform:scale(.98);}
+.menu-btn .bi{font-size:18px;width:24px;text-align:center;}
+.menu-btn .bl{flex:1;text-align:left;}
+.menu-btn .ba{opacity:.3;font-size:13px;}
+.m-jogar{background:var(--blue);color:#fff;box-shadow:0 4px 20px rgba(37,99,235,.35);}
+.m-cont{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15);}
+.m-cont:disabled{opacity:.3;cursor:not-allowed;transform:none;}
+.m-rec{background:rgba(255,255,255,.07);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.1);}
+.m-opt{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.08);}
+.menu-ver{font-size:9px;color:rgba(255,255,255,.15);margin-top:22px;letter-spacing:.8px;}
+
+/* ════════════════════════════════════════════
+   HEADER DO JOGO — fiel à Imagem 1 topo
+   fundo: #1a2744, logo à esq, pills à dir
+════════════════════════════════════════════ */
+#hdr{
+  background:var(--navy);height:52px;padding:0 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;border-bottom:2px solid rgba(255,255,255,.06);
+}
+.hdr-brand{display:flex;align-items:center;gap:10px;}
+.hdr-logo{font-size:22px;}
+.hdr-name{font-size:13px;font-weight:800;color:#fff;letter-spacing:.2px;}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.2px;}
+.hdr-right{display:flex;align-items:center;gap:6px;}
+/* pill fiel à imagem 1: borda arredondada, ícone + label/valor */
+.hpill{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  border-radius:24px;padding:4px 12px;height:30px;
+}
+.hpill-icon{font-size:13px;line-height:1;}
+.hpill-label{display:flex;flex-direction:column;line-height:1.1;}
+.hpill-top{font-size:8px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.4px;}
+.hpill-val{font-size:12px;font-weight:700;color:#fff;}
+.hpill-val.gold{color:#fbbf24;}
+.hpill-val.warn{color:#fb923c;}
+.hpill-val.danger{color:#f87171;animation:blink .7s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hdr-btn{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.8);padding:5px 11px;border-radius:8px;
+  font-size:10px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;
+  transition:all .13s;
+}
+.hdr-btn:hover{background:rgba(255,255,255,.18);}
+#btn-pausa{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);padding:5px 11px;border-radius:8px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* ════════════════════════════════════════════
+   TELA 1 — DASHBOARD  (Imagem 1 pixel a pixel)
+   3 colunas: 230px | 1fr | 220px
+════════════════════════════════════════════ */
+#tela-dash{flex:1;display:grid;grid-template-columns:230px 1fr 220px;overflow:hidden;}
+
+/* — Esquerda: sidebar azul escura — */
+.dl{
+  background:var(--navy);display:flex;flex-direction:column;overflow:hidden;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.dl-img-area{
+  height:210px;position:relative;flex-shrink:0;overflow:hidden;
+  background:linear-gradient(160deg,#1e3a6e 0%,#0f172a 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.dl-img-emoji{font-size:56px;opacity:.7;}
+/* gradiente overlay como na foto */
+.dl-img-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.98) 0%,rgba(15,23,42,.2) 55%,transparent 100%);}
+.dl-img-label{
+  position:absolute;bottom:0;left:0;right:0;padding:12px 14px;z-index:2;
+}
+.dl-img-eyebrow{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;}
+.dl-img-title{font-size:16px;font-weight:800;color:#fff;line-height:1.2;}
+.dl-block{padding:14px;border-bottom:1px solid rgba(255,255,255,.07);}
+.dl-block-title{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.dl-block-title::before{content:'🏠';font-size:11px;}
+.dl-block-text{font-size:11px;color:rgba(255,255,255,.55);line-height:1.75;}
+.dl-obj-title{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.dl-obj-title::before{content:'🎯';font-size:11px;}
+.dl-space{flex:1;}
+.dl-start{
+  margin:12px 14px 14px;padding:13px;
+  background:#16a34a;color:#fff;border:none;border-radius:10px;
+  font-size:14px;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:filter .13s;letter-spacing:.2px;
+}
+.dl-start:hover{filter:brightness(1.12);}
+
+/* — Centro: branco, cards de situação — */
+.dc{
+  background:#f8fafc;overflow-y:auto;display:flex;flex-direction:column;
+  border-right:1px solid var(--border);
+}
+/* Card "Informações do Dia" */
+.dc-info-card{
+  margin:14px;background:#fff;border-radius:12px;
+  border:1px solid var(--border);padding:14px 16px;
+  display:flex;align-items:flex-start;gap:12px;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.dc-info-icon{
+  width:40px;height:40px;background:#dbeafe;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+}
+.dc-info-tag{font-size:9px;font-weight:700;color:var(--txt-muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;}
+.dc-info-title{font-size:15px;font-weight:700;color:var(--txt-dark);}
+.dc-info-sub{font-size:11px;color:var(--txt-muted);margin-top:3px;line-height:1.5;}
+
+/* Seção SITUAÇÃO ATUAL */
+.dc-sit-hdr{
+  margin:0 14px 10px;font-size:10px;font-weight:800;color:var(--txt-dark);
+  text-transform:uppercase;letter-spacing:.7px;
+  padding-top:4px;border-top:1px solid var(--border);padding-top:12px;
+}
+/* 4 KPIs em 2×2 */
+.dc-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 14px 10px;}
+.dc-kpi{
+  background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:12px 13px;display:flex;align-items:center;gap:10px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.dc-kpi-icon-wrap{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.dc-kpi.green .dc-kpi-icon-wrap{background:#dcfce7;}
+.dc-kpi.blue  .dc-kpi-icon-wrap{background:#dbeafe;}
+.dc-kpi.gold  .dc-kpi-icon-wrap{background:#fef3c7;}
+.dc-kpi.red   .dc-kpi-icon-wrap{background:#fee2e2;}
+.dc-kpi-val{font-size:19px;font-weight:900;line-height:1;}
+.dc-kpi.green .dc-kpi-val{color:#16a34a;}
+.dc-kpi.blue  .dc-kpi-val{color:#2563eb;}
+.dc-kpi.gold  .dc-kpi-val{color:#d97706;}
+.dc-kpi.red   .dc-kpi-val{color:#dc2626;}
+.dc-kpi-lbl{font-size:9px;color:var(--txt-muted);margin-top:2px;line-height:1.3;}
+/* Card fila de atendimento */
+.dc-fila-card{
+  margin:0 14px 10px;background:#fff;border:1px solid var(--border);border-radius:12px;
+  padding:12px 14px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.dc-fila-speaker{
+  width:40px;height:40px;background:#dbeafe;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+}
+.dc-fila-body{flex:1;}
+.dc-fila-title{font-size:12px;font-weight:700;color:var(--txt-dark);}
+.dc-fila-sub{font-size:10px;color:var(--txt-muted);margin-top:1px;line-height:1.4;}
+.dc-fila-badge{
+  background:var(--blue);color:#fff;font-size:11px;font-weight:800;
+  padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;
+}
+.dc-fila-badge-lbl{font-size:8px;font-weight:600;opacity:.8;text-align:center;margin-top:1px;}
+/* Dica do dia */
+.dc-dica{
+  margin:0 14px 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;
+  padding:11px 14px;display:flex;gap:10px;align-items:flex-start;
+}
+.dc-dica-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.dc-dica-txt{font-size:11px;color:#1e40af;line-height:1.65;font-weight:500;}
+/* Quote */
+.dc-quote{
+  margin:0 14px 14px;background:#f8fafc;border:1px solid var(--border);border-radius:12px;
+  padding:12px 16px 12px 20px;border-left:3px solid #94a3b8;
+}
+.dc-quote-txt{font-size:11px;color:var(--txt-muted);font-style:italic;line-height:1.65;}
+.dc-quote-mark-open{font-size:22px;color:#cbd5e1;line-height:1;margin-bottom:3px;display:block;}
+.dc-quote-mark-close{font-size:22px;color:#cbd5e1;line-height:1;margin-top:3px;display:block;text-align:right;}
+
+/* — Direita: RECURSOS + AÇÕES RÁPIDAS — */
+.dr{
+  background:#fff;display:flex;flex-direction:column;overflow-y:auto;
+  border-left:1px solid var(--border);
+}
+.dr-section{padding:14px;border-bottom:1px solid var(--border);}
+.dr-section-title{font-size:10px;font-weight:800;color:var(--txt-dark);text-transform:uppercase;letter-spacing:.7px;margin-bottom:11px;}
+/* Cada recurso: ícone circular + nome + barra + valor */
+.dr-res{display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+.dr-res:last-child{margin-bottom:0;}
+.dr-res-dot{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;
+}
+.dr-res-dot.green{background:#dcfce7;}
+.dr-res-dot.blue{background:#dbeafe;}
+.dr-res-dot.amber{background:#fef3c7;}
+.dr-res-dot.purple{background:#ede9fe;}
+.dr-res-body{flex:1;}
+.dr-res-row{display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px;}
+.dr-res-name{color:var(--txt-muted);font-weight:500;}
+.dr-res-val{font-weight:700;color:var(--txt-main);}
+.dr-res-track{height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden;}
+.dr-res-fill{height:100%;border-radius:4px;transition:width .4s,background .3s;}
+/* Botões ação rápida — lista com ícone + texto + seta */
+.dr-acao{
+  width:100%;background:#f8fafc;border:1px solid var(--border);border-radius:10px;
+  padding:10px 12px;cursor:pointer;display:flex;align-items:center;gap:9px;
+  transition:all .13s;font-family:'Inter',sans-serif;margin-bottom:7px;text-align:left;
+}
+.dr-acao:last-child{margin-bottom:0;}
+.dr-acao:hover{background:#eff6ff;border-color:#bfdbfe;}
+.dr-acao-icon{font-size:16px;flex-shrink:0;}
+.dr-acao-title{font-size:12px;font-weight:700;color:var(--txt-dark);flex:1;}
+.dr-acao-sub{font-size:9px;color:var(--txt-muted);margin-top:1px;}
+.dr-acao-arr{color:var(--txt-light);font-size:16px;flex-shrink:0;}
+/* Pressão no painel dir */
+.dr-press-track{height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;margin-top:8px;}
+.dr-press-fill{height:100%;border-radius:4px;transition:width .4s,background .3s;background:var(--amber-mid);}
+
+/* ════════════════════════════════════════════
+   FILA STRIP (topo da tela de caso)
+════════════════════════════════════════════ */
+#fila-strip{
+  background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);
+  padding:7px 16px 0;flex-shrink:0;
+}
+.fs-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.fs-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px;}
+.fs-badge{font-size:9px;background:rgba(255,255,255,.15);color:#fff;padding:2px 10px;border-radius:20px;font-weight:700;}
+#fila-nav{display:flex;gap:5px;align-items:center;margin-left:auto;}
+.fn-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);color:#fff;padding:2px 8px;border-radius:5px;font-size:11px;cursor:pointer;transition:all .12s;}
+.fn-btn:hover{background:rgba(255,255,255,.2);}
+.fn-btn:disabled{opacity:.2;cursor:not-allowed;}
+#fila-idx{font-size:10px;color:rgba(255,255,255,.45);min-width:28px;text-align:center;}
+#fila-cards{display:flex;gap:7px;align-items:flex-end;height:108px;}
+.fila-empty-msg{font-size:12px;color:rgba(255,255,255,.45);align-self:center;padding:20px 0;}
+
+/* Cards de imigrante */
+.icard{
+  width:80px;height:106px;border-radius:7px 7px 0 0;cursor:pointer;
+  position:relative;border:2px solid;overflow:hidden;background:#2d3f6e;
+  transition:transform .13s,box-shadow .13s;flex-shrink:0;
+}
+@keyframes chegada{from{opacity:0;transform:translateX(60px);}to{opacity:1;transform:translateX(0);}}
+@keyframes partida{0%{opacity:1;}50%{filter:brightness(.1);}100%{opacity:0;transform:scale(.1) translateY(-30px);}}
+@keyframes salvo{0%{transform:scale(1);}40%{transform:scale(1.14);filter:brightness(1.3);}100%{transform:scale(1);}}
+.icard{animation:chegada .3s ease;}
+.icard:hover{transform:translateY(-5px);}
+.icard.sel{transform:translateY(-7px);}
+.icard.morrendo{animation:partida .5s forwards!important;pointer-events:none;}
+.icard.salvo{animation:salvo .4s!important;}
+.icard.urgente .ic-timer{display:block;}
+.ic-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ic-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 50%);}
+.ic-dot{position:absolute;top:5px;right:5px;z-index:3;width:8px;height:8px;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);}
+.ic-timer{position:absolute;top:4px;left:4px;z-index:4;font-size:9px;font-weight:700;color:#fff;background:rgba(220,38,38,.92);padding:1px 5px;border-radius:3px;display:none;}
+.ic-name{position:absolute;bottom:0;left:0;right:0;font-size:8px;font-weight:600;color:#fff;text-align:center;padding:3px 2px;z-index:2;text-shadow:0 1px 3px rgba(0,0,0,.95);}
+.icard.critico{border-color:#ef4444;} .icard.grave{border-color:#f59e0b;}
+.icard.moderado{border-color:#22c55e;} .icard.estavel{border-color:#3b82f6;}
+.critico .ic-dot{background:#ef4444;} .grave .ic-dot{background:#f59e0b;}
+.moderado .ic-dot{background:#22c55e;} .estavel .ic-dot{background:#3b82f6;}
+.icard.critico.sel{box-shadow:0 0 0 2px #fff,0 0 0 4px #ef4444;}
+.icard.sel:not(.critico){box-shadow:0 0 0 2px #fff,0 0 0 4px #3b82f6;}
+
+/* ════════════════════════════════════════════
+   INFO STRIP (progresso + combo + pressão)
+════════════════════════════════════════════ */
+#info-strip{
+  background:#1e2f52;border-bottom:1px solid rgba(255,255,255,.07);
+  padding:4px 16px;display:flex;align-items:center;gap:9px;flex-shrink:0;
+  font-size:9px;color:rgba(255,255,255,.45);
+}
+.is-lbl{text-transform:uppercase;letter-spacing:.6px;font-weight:700;white-space:nowrap;}
+#prog-casos{display:flex;gap:3px;}
+.prog-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,.1);}
+.prog-dot.pendente{background:rgba(255,255,255,.1);}
+.prog-dot.critico{background:#ef4444;} .prog-dot.grave{background:#f59e0b;}
+.prog-dot.moderado{background:#22c55e;} .prog-dot.estavel{background:#3b82f6;}
+.prog-dot.concluido{background:rgba(255,255,255,.3);} .prog-dot.perdido-dot{background:#7f1d1d;}
+#prog-texto{white-space:nowrap;}
+.is-div{width:1px;background:rgba(255,255,255,.12);height:11px;flex-shrink:0;}
+.cpip{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);transition:all .2s;}
+.cpip.lit{background:#fbbf24;border-color:#d97706;box-shadow:0 0 4px rgba(251,191,36,.4);}
+#combo-pips{display:flex;gap:3px;}
+#combo-msg{font-size:9px;font-weight:700;color:#fbbf24;white-space:nowrap;}
+#pressao-track-strip{width:90px;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;flex-shrink:0;}
+#pressao-fill-strip{height:100%;width:0%;border-radius:3px;transition:width .4s,background .3s;background:#22c55e;}
+#pressao-val-strip{white-space:nowrap;}
+
+/* ════════════════════════════════════════════
+   TELA 2 — CASO (Imagem 2)
+   3 colunas: 240px | 1fr | 220px
+════════════════════════════════════════════ */
+#tela-caso{flex:1;display:grid;grid-template-columns:240px 1fr 220px;overflow:hidden;}
+
+/* Col 1 — FICHA DO IMIGRANTE (fundo azul marinho como na imagem) */
+.cf{background:var(--navy);border-right:1px solid rgba(255,255,255,.07);overflow-y:auto;display:flex;flex-direction:column;}
+.cf-hdr{padding:9px 13px;border-bottom:1px solid rgba(255,255,255,.07);font-size:9px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.8px;}
+.cf-avatar-area{padding:16px;display:flex;flex-direction:column;align-items:center;border-bottom:1px solid rgba(255,255,255,.07);position:relative;}
+.cf-photo{width:100px;height:120px;border-radius:10px;border:2px solid rgba(255,255,255,.15);object-fit:cover;display:block;}
+.cf-ven{position:absolute;bottom:11px;left:50%;transform:translateX(-50%);background:#CF142B;color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;}
+.cf-name{font-size:15px;font-weight:800;color:#fff;margin-top:12px;text-align:center;line-height:1.2;}
+.cf-origem{font-size:10px;color:rgba(255,255,255,.4);text-align:center;margin-top:3px;}
+.cf-chips{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;justify-content:center;}
+/* chips fundo semitransparente como na imagem */
+.chip{font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700;}
+.chip.critico{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.35);}
+.chip.grave{background:rgba(245,158,11,.2);color:#fcd34d;border:1px solid rgba(245,158,11,.35);}
+.chip.moderado{background:rgba(34,197,94,.2);color:#86efac;border:1px solid rgba(34,197,94,.35);}
+.chip.estavel{background:rgba(59,130,246,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.35);}
+.cf-sec{padding:10px 13px;border-bottom:1px solid rgba(255,255,255,.06);}
+.cf-sec:last-child{border-bottom:none;}
+.cf-sec h4{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.7px;font-weight:700;margin-bottom:7px;}
+.cf-row{display:flex;justify-content:space-between;gap:8px;margin-bottom:5px;}
+.cf-lbl{font-size:11px;color:rgba(255,255,255,.45);}
+.cf-val{font-size:11px;color:#fff;font-weight:600;text-align:right;}
+.vuln-pill{
+  display:inline-flex;align-items:center;gap:5px;border-radius:7px;
+  padding:5px 10px;font-size:11px;font-weight:700;margin-top:3px;
+}
+.vuln-pill.critico{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
+.vuln-pill.grave{background:rgba(245,158,11,.2);color:#fcd34d;border:1px solid rgba(245,158,11,.3);}
+.vuln-pill.moderado{background:rgba(34,197,94,.2);color:#86efac;border:1px solid rgba(34,197,94,.3);}
+.vuln-pill.estavel{background:rgba(59,130,246,.2);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+.urgente-box{margin:8px 13px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);border-radius:7px;padding:7px 10px;font-size:11px;font-weight:700;color:#fca5a5;display:flex;align-items:center;gap:5px;}
+.dica-azul{background:rgba(59,130,246,.15);border-left:3px solid rgba(59,130,246,.6);padding:8px 10px;font-size:10px;color:#93c5fd;line-height:1.6;}
+.cf-footer-note{padding:8px 13px;font-size:9px;color:rgba(255,255,255,.3);line-height:1.5;border-top:1px solid rgba(255,255,255,.06);}
+
+/* Col 2 — HISTÓRIA DO CASO (fundo branco) */
+.ch{background:#fff;overflow-y:auto;border-right:1px solid var(--border);}
+.ch-sec{padding:14px 16px;border-bottom:1px solid var(--border);}
+.ch-sec:last-child{border-bottom:none;}
+.ch-sec h3{font-size:9px;color:var(--txt-muted);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.ch-sec h3::before{font-size:13px;}
+.ch-sec.historia h3::before{content:'💬';}
+.ch-sec.lei h3::before{content:'⚖️';}
+.ch-sec.dilema h3::before{content:'❗';}
+/* Citação com aspas grandes como na imagem */
+.ch-quote-wrap{position:relative;padding-left:18px;}
+.ch-quote-mark{position:absolute;left:0;top:-4px;font-size:32px;color:#cbd5e1;line-height:1;font-family:Georgia,serif;}
+.ch-quote-text{font-size:13px;line-height:1.78;color:var(--txt-muted);font-style:italic;}
+.lei-box{font-size:11px;line-height:1.72;color:#1e40af;background:#eff6ff;padding:11px 13px;border-radius:9px;border:1px solid #bfdbfe;}
+.dil-box{font-size:11px;line-height:1.72;color:#92400e;background:#fffbeb;padding:11px 13px;border-radius:9px;border:1px solid #fde68a;}
+
+/* Col 3 — SUA DECISÃO + DIÁRIO */
+.cd{background:var(--bg-sidebar);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
+.cd-hdr{padding:9px 13px;border-bottom:1px solid var(--border);font-size:9px;font-weight:700;color:var(--txt-muted);text-transform:uppercase;letter-spacing:.8px;}
+.cd-body{padding:9px 11px;display:flex;flex-direction:column;gap:7px;}
+/* Cards de decisão — fiel Imagem 2 */
+.dec-opt{border-radius:11px;padding:12px;border:1.5px solid;cursor:default;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.dec-opt.acolher{border-color:#bbf7d0;background:#f0fdf4;}
+.dec-opt.assistencia{border-color:#bfdbfe;background:#eff6ff;}
+.dec-opt.encaminhar{border-color:var(--border2);background:#fff;}
+.dec-opt-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.dec-opt-icon-wrap{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.dec-opt.acolher .dec-opt-icon-wrap{background:#dcfce7;}
+.dec-opt.assistencia .dec-opt-icon-wrap{background:#dbeafe;}
+.dec-opt.encaminhar .dec-opt-icon-wrap{background:#f1f5f9;}
+.dec-opt-title{font-size:13px;font-weight:800;color:var(--txt-dark);}
+.dec-opt-desc{font-size:10px;color:var(--txt-muted);line-height:1.5;margin-bottom:8px;}
+.dec-impacts{display:flex;flex-direction:column;gap:3px;background:rgba(0,0,0,.03);border-radius:7px;padding:7px 9px;}
+.dec-impact{display:flex;justify-content:space-between;font-size:10px;}
+.dec-impact .lbl{color:var(--txt-muted);font-weight:500;}
+.dec-impact .pos{color:var(--green);font-weight:700;}
+.dec-impact .neg{color:var(--red);font-weight:700;}
+.dec-impact .neu{color:var(--txt-light);}
+/* Botão VER FILA no rodapé da coluna direita */
+.cd-ver-fila{
+  margin:8px 11px;padding:10px 13px;background:var(--blue);color:#fff;
+  border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:filter .13s;
+}
+.cd-ver-fila:hover{filter:brightness(1.1);}
+/* Diário */
+#diario{border-top:1px solid var(--border);display:flex;flex-direction:column;min-height:80px;overflow:hidden;flex:1;}
+#diario-header{background:#f1f5f9;color:var(--txt-muted);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;padding:6px 13px;border-bottom:1px solid var(--border);flex-shrink:0;}
+#diario-list{flex:1;overflow-y:auto;padding:5px;}
+.di-item{background:#fff;border-radius:6px;padding:6px 9px;margin-bottom:4px;border:1px solid var(--border);border-left-width:3px;font-size:11px;animation:slideIn .22s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateX(12px);}to{opacity:1;transform:translateX(0);}}
+.di-item.acolher{border-left-color:#22c55e;} .di-item.estabilizar{border-left-color:#f59e0b;}
+.di-item.encaminhar{border-left-color:#94a3b8;} .di-item.perdido{border-left-color:#ef4444;}
+.di-nome{font-weight:700;color:var(--txt-dark);font-size:11px;}
+.di-acao{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.di-item.acolher .di-acao{color:#16a34a;} .di-item.estabilizar .di-acao{color:#d97706;}
+.di-item.encaminhar .di-acao{color:#64748b;} .di-item.perdido .di-acao{color:#dc2626;}
+.di-pts{font-size:10px;color:#d97706;font-weight:700;}
+.di-empty{font-size:11px;color:var(--txt-light);text-align:center;padding:14px 8px;line-height:1.7;}
+
+/* ════════════════════════════════════════════
+   BARRA DE AÇÕES (rodapé)
+════════════════════════════════════════════ */
+#acoes{background:#fff;border-top:1px solid var(--border);padding:9px 14px;flex-shrink:0;box-shadow:0 -2px 8px rgba(0,0,0,.04);}
+.act-row{display:flex;gap:7px;margin-bottom:6px;}
+.btn{
+  flex:1;padding:11px 7px;border:none;border-radius:10px;
+  font-size:12px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;position:relative;line-height:1.3;
+  transition:filter .12s,transform .1s;
+}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px);}
+.btn:active{transform:scale(.97);}
+.btn:disabled{opacity:.22;cursor:not-allowed;transform:none;filter:none;}
+.btn-help{background:#16a34a;color:#fff;font-size:13px;flex:1.4;box-shadow:0 2px 8px rgba(22,163,74,.25);}
+.btn-help.modo-assist{background:#2563eb;box-shadow:0 2px 8px rgba(37,99,235,.25);}
+.btn-enc{background:#f1f5f9;color:var(--txt-muted);border:1px solid var(--border2);}
+.btn-enc.critico-sel{background:#fef2f2;color:#dc2626;border-color:#fecaca;animation:pulseR 1s infinite;}
+@keyframes pulseR{0%,100%{box-shadow:0 0 0 2px #fca5a5;}50%{box-shadow:0 0 0 4px rgba(239,68,68,.1);}}
+.btn-next{width:100%;padding:11px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-family:'Inter',sans-serif;transition:filter .12s;box-shadow:0 2px 8px rgba(37,99,235,.2);}
+.btn-next:hover{filter:brightness(1.08);}
+.btn-next:disabled{opacity:.22;cursor:not-allowed;filter:none;box-shadow:none;}
+.act-hint{font-size:10px;color:var(--txt-light);text-align:center;margin-top:4px;}
+.btn-tip{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#1e293b;color:#e2e8f0;font-size:10px;padding:6px 9px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .13s;z-index:20;}
+.btn:hover .btn-tip{opacity:1;}
+.btn-kbd{position:absolute;top:3px;right:5px;background:rgba(0,0,0,.12);border-radius:3px;padding:1px 4px;font-size:8px;font-weight:700;color:rgba(255,255,255,.6);}
+#btn-acolher,#btn-estabilizar{display:none!important;}
+
+/* ════════════════════════════════════════════
+   TELA 3 — RELATÓRIO FINAL (Imagem 3)
+   Fundo branco/cinza claro, header navy
+════════════════════════════════════════════ */
+#ov-fim .modal{max-width:720px;padding:0;text-align:left;overflow:hidden;border-radius:16px;}
+.fim-hdr{
+  background:var(--navy);padding:16px 22px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.fim-brand{display:flex;align-items:center;gap:9px;}
+.fim-brand-icon{font-size:18px;}
+.fim-brand-name{font-size:12px;font-weight:800;color:#fff;}
+.fim-brand-sub{font-size:9px;color:rgba(255,255,255,.4);}
+.fim-hdr-label{font-size:16px;font-weight:900;color:#fff;letter-spacing:.5px;}
+.fim-cols{display:grid;grid-template-columns:200px 1fr 1fr;background:#f8fafc;}
+/* Col 1 — nota/grade */
+.fim-cg{
+  padding:28px 18px;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  background:#fff;
+}
+.fim-result-title{font-size:16px;font-weight:900;text-align:center;letter-spacing:.2px;}
+.fim-result-title.ok{color:#16a34a;}
+.fim-result-title.bad{color:#dc2626;}
+.fim-result-title.mid{color:#d97706;}
+.fim-result-sub{font-size:11px;color:var(--txt-muted);text-align:center;line-height:1.6;}
+.fim-circle{
+  width:90px;height:90px;border-radius:50%;border:4px solid #16a34a;
+  display:flex;align-items:center;justify-content:center;
+  background:#f0fdf4;
+}
+.fim-letter{font-size:42px;font-weight:900;color:#16a34a;}
+.fim-grade-lbl{font-size:10px;color:var(--txt-muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700;text-align:center;}
+.fim-grade-title{font-size:11px;color:var(--txt-muted);text-align:center;}
+/* Col 2 — resumo */
+.fim-cr{padding:22px 18px;border-right:1px solid var(--border);background:#fff;}
+.fim-cr h3,.fim-ca h3{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--txt-dark);margin-bottom:14px;text-align:center;}
+.fim-stat{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.fim-stat:last-child{border-bottom:none;}
+.fim-stat-icon{font-size:14px;width:20px;text-align:center;flex-shrink:0;}
+.fim-stat-lbl{font-size:12px;color:var(--txt-muted);flex:1;}
+.fim-stat-val{font-size:14px;font-weight:800;color:var(--txt-dark);}
+/* Col 3 — avaliação */
+.fim-ca{padding:22px 18px;background:#fff;display:flex;flex-direction:column;gap:12px;}
+.fim-aval-text{font-size:12px;color:var(--txt-muted);line-height:1.75;}
+/* foto de grupo — Imagem 3 */
+.fim-img{
+  border-radius:10px;height:100px;overflow:hidden;
+  background:linear-gradient(135deg,#dbeafe 0%,#eff6ff 50%,#d1fae5 100%);
+  display:flex;align-items:center;justify-content:center;font-size:44px;
+}
+.fim-edu{background:#f8fafc;border-radius:8px;padding:10px 12px;border:1px solid var(--border);}
+.fim-edu-lbl{font-size:9px;color:var(--txt-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-bottom:3px;}
+/* Footer botões */
+.fim-foot{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:center;background:#f8fafc;}
+.fim-foot .mbtn{min-width:160px;padding:12px 22px;font-size:14px;}
+
+/* ════════════════════════════════════════════
+   EXTRAS
+════════════════════════════════════════════ */
+.upg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0;}
+.upg-card{background:#fff;border-radius:12px;padding:16px 10px;cursor:pointer;border:2px solid var(--border);transition:all .13s;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.upg-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.12);}
+.upg-icon{font-size:26px;margin-bottom:7px;}
+.upg-name{font-size:13px;font-weight:700;margin-bottom:3px;color:var(--txt-dark);}
+.upg-desc{font-size:11px;color:var(--txt-muted);line-height:1.45;}
+.ev-choices{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
+.ev-btn{padding:12px 13px;background:#f8fafc;border:1px solid var(--border);border-radius:9px;font-size:13px;text-align:left;cursor:pointer;color:var(--txt-muted);font-family:'Inter',sans-serif;transition:all .13s;}
+.ev-btn:hover{background:#f1f5f9;color:var(--txt-dark);}
+.ev-btn.main{background:var(--blue);color:#fff;border-color:transparent;}
+.tut-step{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid var(--border);}
+.tut-step:last-child{border-bottom:none;}
+.tut-icon{font-size:20px;width:27px;flex-shrink:0;text-align:center;}
+.tut-title{font-size:12px;font-weight:700;color:var(--txt-dark);margin-bottom:2px;}
+.tut-desc{font-size:11px;color:var(--txt-muted);line-height:1.5;}
+.opt-section{text-align:left;margin-bottom:14px;}
+.opt-sec-title{font-size:9px;font-weight:700;color:var(--txt-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.opt-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);}
+.opt-row:last-child{border-bottom:none;}
+.opt-lbl{font-size:13px;font-weight:600;color:var(--txt-dark);}
+.opt-desc-txt{font-size:11px;color:var(--txt-muted);margin-top:1px;}
+.opt-toggle{width:40px;height:22px;border-radius:11px;background:#e2e8f0;border:none;cursor:pointer;position:relative;transition:background .18s;flex-shrink:0;}
+.opt-toggle.on{background:#16a34a;}
+.opt-toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.opt-toggle.on::after{transform:translateX(18px);}
+.opt-select{padding:5px 9px;border-radius:7px;border:1px solid var(--border2);font-size:12px;background:#fff;color:var(--txt-main);font-family:'Inter',sans-serif;}
+.rec-item{background:#fff;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:11px;border:1px solid var(--border);margin-bottom:7px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.rec-rank{font-size:20px;font-weight:900;width:28px;text-align:center;}
+.rec-rank.gold{color:#d97706;} .rec-rank.silver{color:#64748b;} .rec-rank.bronze{color:#92400e;}
+.rec-info{flex:1;}
+.rec-pts{font-size:16px;font-weight:800;color:var(--txt-dark);}
+.rec-meta{font-size:10px;color:var(--txt-muted);margin-top:1px;}
+.rec-grade{font-size:11px;font-weight:700;color:#16a34a;}
+.no-records{text-align:center;color:var(--txt-light);padding:20px;font-size:13px;}
+/* FX */
+#death-flash{position:fixed;inset:0;background:rgba(239,68,68,.18);pointer-events:none;z-index:800;opacity:0;transition:opacity .12s;}
+#death-flash.show{opacity:1;}
+#boss-banner{position:fixed;top:0;left:0;right:0;background:#dc2626;color:#fff;text-align:center;padding:9px;font-size:12px;font-weight:700;z-index:700;transform:translateY(-100%);transition:transform .35s;}
+#boss-banner.show{transform:translateY(0);}
+#notif{position:fixed;top:10px;left:50%;transform:translateX(-50%);padding:9px 18px;border-radius:10px;font-size:12px;font-weight:700;z-index:999;opacity:0;transition:opacity .22s;pointer-events:none;max-width:360px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.15);}
+#notif.show{opacity:1;}
+#notif.ok{background:#1e293b;color:#fff;}
+#notif.warn{background:#f59e0b;color:#111;}
+#notif.err{background:#dc2626;color:#fff;}
+#notif.good{background:#16a34a;color:#fff;}
+.score-pop{position:fixed;font-size:18px;font-weight:900;color:#d97706;pointer-events:none;z-index:999;animation:popUp .85s ease forwards;}
+@keyframes popUp{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-50px);}}
+.consequence-card{border-radius:9px;padding:10px 12px;font-size:12px;line-height:1.7;margin-top:2px;}
+.consequence-card.bom{background:#f0fdf4;border-left:3px solid #22c55e;color:#166534;}
+.consequence-card.ruim{background:#fef2f2;border-left:3px solid #ef4444;color:#991b1b;}
+.consequence-card.neutro{background:#fffbeb;border-left:3px solid #f59e0b;color:#92400e;}
+#streak-badge{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:linear-gradient(135deg,#f59e0b,#fcd34d);color:#111;padding:16px 28px;border-radius:16px;font-size:22px;font-weight:900;z-index:600;box-shadow:0 8px 32px rgba(0,0,0,.25);transition:transform .22s cubic-bezier(.34,1.56,.64,1);}
+#streak-badge.show{transform:translate(-50%,-50%) scale(1);}
+#confirm-bar{position:fixed;bottom:0;left:0;right:0;background:#7f1d1d;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:11px 18px;z-index:800;transform:translateY(100%);transition:transform .22s cubic-bezier(.34,1.56,.64,1);}
+#confirm-bar.show{transform:translateY(0);}
+#confirm-bar .cb-msg{font-size:13px;font-weight:700;}
+#confirm-bar .cb-sub{font-size:11px;opacity:.65;margin-top:1px;}
+#confirm-bar .cb-btns{display:flex;gap:7px;}
+.cb-btn{padding:7px 14px;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;}
+.cb-btn-cancel{background:rgba(255,255,255,.15);color:#fff;}
+.cb-btn-confirm{background:#fff;color:#7f1d1d;}
+#confirm-countdown{font-size:18px;font-weight:900;min-width:20px;text-align:center;color:#fca5a5;}
+#kbd-hint{position:fixed;bottom:65px;right:12px;background:#1e293b;color:#94a3b8;border-radius:9px;padding:9px 12px;font-size:10px;line-height:1.9;z-index:400;display:none;border:1px solid #334155;}
+#kbd-hint.show{display:block;}
+.kbd-row{display:flex;gap:7px;align-items:center;}
+.kbd-key{background:#334155;border:1px solid #475569;border-radius:3px;padding:1px 5px;font-size:9px;font-weight:700;color:#e2e8f0;min-width:18px;text-align:center;}
+#pausa-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:950;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+#pausa-overlay.off{display:none;}
+.pausa-box{background:#fff;border-radius:16px;padding:28px 32px;text-align:center;max-width:290px;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.pausa-box h2{font-size:20px;margin-bottom:6px;color:var(--txt-dark);}
+.pausa-box p{color:var(--txt-muted);font-size:12px;margin-bottom:18px;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}50%{transform:translateX(4px);}}
+.shaking{animation:shake .4s ease;}
+.no-anim #death-flash,.no-anim .shaking{animation:none!important;transition:none!important;}
+#res,#fila-area,#progresso-dia,#combo-bar,#main,#detalhe{display:none!important;}
+
+/* ════════════════════════════════════════════
+   v16 · HISTÓRIA + CADERNO DO NOVATO
+════════════════════════════════════════════ */
+.btn-tool{background:#f8fafc;color:#334155;border:1px solid #cbd5e1;font-size:11.5px;}
+.btn-tool small{font-weight:400;font-size:9.5px;opacity:.8;}
+.btn-tool.feito{background:#ecfdf5;color:#047857;border-color:#a7f3d0;}
+.btn-trab{background:#fffbeb;color:#92400e;border-color:#fde68a;}
+.btn-den{background:#fef2f2;color:#b91c1c;border-color:#fecaca;}
+.btn-tool .btn-kbd{color:rgba(0,0,0,.45);background:rgba(0,0,0,.07);}
+.dec-opt.tools{border-color:#cbd5e1;background:#f8fafc;}
+.dec-opt.tools .dec-opt-icon-wrap{background:#e2e8f0;}
+.doc-pend{border:1px dashed rgba(255,255,255,.35);border-radius:9px;padding:9px 10px;font-size:11px;color:rgba(255,255,255,.7);line-height:1.5;text-align:center;}
+.doc-pend small{opacity:.7;font-size:9.5px;}
+.alert-box{background:rgba(220,38,38,.18);border:1px solid rgba(248,113,113,.55);border-radius:9px;padding:9px 10px;color:#fecaca;}
+.alert-t{font-size:9px;font-weight:800;letter-spacing:.8px;color:#fca5a5;}
+.alert-tipo{font-size:12px;font-weight:800;color:#fff;margin:2px 0 5px;}
+.alert-box ul{margin:0;padding-left:15px;font-size:10.5px;line-height:1.55;}
+.ok-box{background:rgba(34,197,94,.14);border:1px solid rgba(74,222,128,.4);border-radius:9px;padding:8px 10px;font-size:11px;color:#bbf7d0;line-height:1.5;}
+.princ-box{margin-top:9px;background:#eff6ff;border-left:3px solid #2563eb;border-radius:6px;padding:8px 10px;font-size:11px;color:#1e3a8a;line-height:1.55;text-align:left;}
+.story-warn{margin-top:9px;background:#fef2f2;border-left:3px solid #dc2626;border-radius:6px;padding:8px 10px;font-size:11px;color:#7f1d1d;line-height:1.55;text-align:left;}
+.cad-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.cad-chip{background:#f1f5f9;border-radius:9px;padding:7px 9px;}
+.cad-chip b{display:block;font-size:18px;color:#0f172a;line-height:1.2;}
+.cad-chip span{font-size:10px;color:#64748b;}
+.icard .ic-name{white-space:normal;}
+
+#ov-cena{z-index:950;}
+.cena-box{background:linear-gradient(160deg,#0b1220,#16233b);color:#e2e8f0;border-radius:18px;width:100%;max-width:640px;padding:20px 24px 18px;box-shadow:0 24px 70px rgba(0,0,0,.55);border:1px solid rgba(148,163,184,.25);max-height:94vh;overflow-y:auto;}
+.cena-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+#cena-cap{font-size:10px;font-weight:800;letter-spacing:1.4px;color:#fbbf24;}
+.cena-skip{background:none;border:1px solid rgba(148,163,184,.35);color:#94a3b8;border-radius:8px;font-size:11px;padding:3px 9px;cursor:pointer;font-family:'Inter',sans-serif;}
+.cena-skip:hover{color:#e2e8f0;border-color:#94a3b8;}
+.cena-titulo{font-size:22px;font-weight:800;color:#fff;margin-bottom:2px;}
+.cena-local{font-size:11px;color:#94a3b8;margin-bottom:14px;}
+.cena-stage{display:flex;gap:14px;align-items:flex-start;min-height:150px;background:rgba(255,255,255,.045);border-radius:14px;padding:14px;border-left:4px solid var(--spk,#fbbf24);}
+.cena-avatar{font-size:44px;line-height:1;width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border-radius:50%;flex-shrink:0;}
+.cena-fala{flex:1;min-width:0;}
+.cena-nome{font-weight:800;font-size:14px;color:var(--spk,#fbbf24);min-height:17px;}
+.cena-cargo{font-size:10px;color:#94a3b8;margin-bottom:6px;min-height:12px;}
+.cena-texto{font-size:14px;line-height:1.65;color:#e2e8f0;min-height:76px;}
+.cena-texto.narr{font-style:italic;color:#cbd5e1;}
+.cena-acoes{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px;}
+.cena-acoes .mbtn{margin:0;}
+.cena-acoes .cena-esc{background:#1e293b;color:#e2e8f0;border:1px solid #475569;text-align:left;font-weight:600;flex:1 1 100%;}
+.cena-acoes .cena-esc:hover{background:#273449;border-color:#fbbf24;}
+.cena-prog{display:flex;gap:4px;justify-content:center;margin-top:10px;}
+.cena-prog i{width:6px;height:6px;border-radius:50%;background:#334155;}
+.cena-prog i.on{background:#fbbf24;}
+@media(max-width:560px){.cena-stage{flex-direction:column;align-items:center;text-align:center;}}
+
+.conf-box{margin:12px 16px 0;border-radius:10px;padding:11px 14px;font-size:12px;line-height:1.55;}
+.conf-box.pend{background:#f8fafc;border:1px dashed #94a3b8;color:#475569;}
+.conf-box.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;}
+.conf-box.alerta{background:#fef2f2;border:1px solid #fca5a5;color:#7f1d1d;}
+.conf-t{font-size:9.5px;font-weight:800;letter-spacing:.8px;color:#b91c1c;}
+.conf-tipo{font-size:14px;font-weight:800;margin:2px 0 4px;color:#991b1b;}
+.conf-box ul{margin:0 0 6px;padding-left:18px;}
+.conf-acao{font-size:11.5px;font-weight:600;color:#7f1d1d;}
+
+
+/* ════════════════════════════════════════════
+   v17 · BALCÃO DE ATENDIMENTO
+════════════════════════════════════════════ */
+#tela-caso{grid-template-columns:210px 1fr 292px;}
+#tela-caso .ch{background:#d8d0bd;}
+#acoes .act-row{display:none;}
+#diario{display:none;}
+.cf-hdr,.cd-hdr{white-space:nowrap;}
+
+.passos{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:9px 14px;background:#f8fafc;border-bottom:1px solid var(--border);font-size:11px;position:sticky;top:0;z-index:5;}
+.passo{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:#e2e8f0;color:#64748b;font-weight:600;}
+.passo b{background:#94a3b8;color:#fff;border-radius:50%;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;}
+.passo.on{background:#dbeafe;color:#1d4ed8;}.passo.on b{background:#2563eb;}
+.passo.ok{background:#dcfce7;color:#166534;}.passo.ok b{background:#16a34a;}
+.passos i{color:#94a3b8;font-style:normal;}
+.passos-man{margin-left:auto;cursor:pointer;font-weight:700;color:#1d4ed8;padding:4px 10px;border:1px solid #bfdbfe;border-radius:99px;background:#eff6ff;}
+.passos-man:hover{background:#dbeafe;}
+
+.mesa{padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;}
+.papel{background:#fffdf7;border:1px solid #e5dcc3;border-radius:4px;padding:11px 14px 12px;box-shadow:0 2px 6px rgba(60,45,20,.25);font-size:12px;line-height:1.55;color:#1f2937;position:relative;overflow:hidden;}
+.p-relato,.p-decl{grid-column:1/-1;}
+.p-id{transform:rotate(-.4deg);}.p-qual{transform:rotate(.4deg);}
+.pp-t{font-size:9.5px;font-weight:800;letter-spacing:.9px;color:#7c6f4f;margin-bottom:7px;padding-bottom:5px;border-bottom:1px dashed #d9cfae;}
+.pp-txt{font-size:13px;line-height:1.7;font-style:italic;color:#374151;}
+.pp-lei{margin-top:8px;font-size:10.5px;color:#334155;background:#eef2ff;border-radius:4px;padding:6px 8px;}
+.pp-dil{margin-top:6px;font-size:11px;color:#78350f;background:#fef3c7;border-radius:4px;padding:6px 8px;}
+.pp-row{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dotted #eadfc2;}
+.pp-row span{color:#7c6f4f;flex-shrink:0;}.pp-row b{text-align:right;}
+.pp-dica{font-size:10.5px;color:#6b6350;margin-bottom:6px;}
+.ln{padding:7px 10px;margin:3px 0;border-radius:5px;cursor:pointer;border:1px solid transparent;transition:background .12s,border-color .12s;}
+.ln:hover{background:#f1f5f9;border-color:#cbd5e1;}
+.ln.mk{background:#fee2e2;border-color:#ef4444;color:#7f1d1d;font-weight:600;}
+.ln.mk::before{content:"🚩 ";}
+.papel.lac{min-height:112px;}
+.sk{height:9px;border-radius:5px;background:#e8e0c8;margin:9px 0;}.sk.s{width:55%;}
+.lacre{position:absolute;inset:0;background:rgba(48,40,26,.62);backdrop-filter:blur(2px);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;cursor:pointer;text-align:center;letter-spacing:.8px;}
+.lacre small{font-weight:500;font-size:10.5px;margin-top:3px;letter-spacing:0;opacity:.9;}
+.lacre:hover{background:rgba(37,99,235,.7);}
+
+.rb-box{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:5px;}
+.rb{display:flex;align-items:center;gap:7px;font-size:11px;}
+.rb-t{flex:1;height:6px;background:#e2e8f0;border-radius:4px;overflow:hidden;}.rb-f{height:100%;}
+.rb b{width:26px;text-align:right;font-size:10.5px;color:#334155;}
+.st-ttl{padding:10px 12px 4px;font-size:9px;font-weight:800;letter-spacing:.8px;color:var(--txt-muted);}
+.stamps{padding:4px 11px 10px;display:flex;flex-direction:column;gap:8px;}
+.stamp{display:flex;align-items:center;gap:10px;text-align:left;border:2px solid;border-radius:10px;padding:9px 11px;background:#fff;cursor:pointer;font-family:'Inter',sans-serif;position:relative;transition:transform .1s,box-shadow .1s;transform:rotate(-.6deg);box-shadow:0 2px 0 rgba(0,0,0,.13);}
+.stamp:hover{transform:rotate(0) translateY(-1px);box-shadow:0 4px 0 rgba(0,0,0,.13);}
+.stamp.bater{animation:bater .17s ease;}
+@keyframes bater{0%{transform:translateY(0);}50%{transform:translateY(5px) scale(.96);}100%{transform:translateY(0);}}
+.stamp.bloq{opacity:.55;}
+.stamp.off{opacity:.3;pointer-events:none;}
+.st-ic{font-size:22px;}.st-b{display:flex;flex-direction:column;gap:1px;flex:1;padding-right:12px;}
+.st-t{font-weight:800;font-size:13px;letter-spacing:.7px;}.st-s{font-size:10px;color:#64748b;line-height:1.35;}
+.stamp kbd{position:absolute;top:5px;right:7px;font-size:9px;background:rgba(0,0,0,.08);border-radius:3px;padding:1px 5px;font-family:inherit;}
+.s-acolher{border-color:#16a34a;color:#166534;background:#f0fdf4;}
+.s-estabilizar{border-color:#2563eb;color:#1e40af;background:#eff6ff;}
+.s-encaminhar{border-color:#64748b;color:#334155;background:#f8fafc;}
+.s-emprego{border-color:#d97706;color:#92400e;background:#fffbeb;}
+.s-denunciar{border-color:#dc2626;color:#991b1b;background:#fef2f2;}
+
+.gab{margin-top:9px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;font-size:11px;text-align:left;}
+.gab-t{font-size:9px;font-weight:800;letter-spacing:.8px;color:#92400e;margin-bottom:4px;}
+.gab ul{margin:0;padding:0;list-style:none;}.gab ul li::before{content:none;}
+.gab li{padding:2px 0;line-height:1.45;font-size:11px;}
+.g-ok{color:#166534;}.g-err{color:#b91c1c;}.g-miss{color:#92400e;}
+
+#btn-manual.pulse{animation:pulseR 1.3s infinite;}
+.man-box{max-width:660px;text-align:left;}
+.man-box h2{text-align:center;}
+.man-box h3{font-size:11px;letter-spacing:.9px;color:#1d4ed8;margin:14px 0 4px;}
+.man-box ul{font-size:12px;line-height:1.65;margin:0 0 4px;}
+.man-box p{text-align:left;font-size:12px;line-height:1.6;margin:0 0 6px;}
+.man-no{background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 11px;font-size:12px;color:#7f1d1d;line-height:1.6;}
+.rd-row{display:flex;justify-content:space-between;padding:6px 2px;border-bottom:1px solid #eef2f7;font-size:13px;}
+.rd-row b.pos{color:#16a34a;}.rd-row b.neg{color:#dc2626;}
+.rd-msg{margin:12px 0;background:#eff6ff;border-left:3px solid #2563eb;border-radius:6px;padding:9px 12px;font-size:12px;color:#1e3a8a;line-height:1.55;text-align:left;}
+@media(max-width:900px){#tela-caso{grid-template-columns:1fr;overflow-y:auto;}.mesa{grid-template-columns:1fr;}.p-id,.p-qual{transform:none;}}
+
+.rb-box{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:8px 12px;}
+.stamps{gap:6px;padding:4px 11px 8px;}
+.stamp{padding:6px 10px;}
+.st-ic{font-size:19px;}.st-t{font-size:12px;}.st-s{font-size:9.5px;}
+.st-ttl{padding:7px 12px 3px;}
+.cd-ver-fila{margin:2px 11px 10px;}
+
+
+/* ═══ v20 · clareza ═══ */
+.guia-bub{margin:10px 14px 0;padding:11px 14px;border-radius:10px;background:#1e3a8a;color:#fff;font-size:13px;line-height:1.55;position:relative;box-shadow:0 3px 10px rgba(30,58,138,.35);animation:gbIn .3s ease;}
+.guia-bub kbd{background:rgba(255,255,255,.2);border-radius:3px;padding:0 5px;font-family:inherit;font-size:11px;}
+.guia-bub .gb-tag{position:absolute;top:-8px;right:12px;background:#f59e0b;color:#422006;font-size:9px;font-weight:800;letter-spacing:.8px;padding:2px 8px;border-radius:99px;}
+@keyframes gbIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.lacre.pulsa{animation:lacPulse 1.2s infinite;}
+@keyframes lacPulse{0%,100%{box-shadow:inset 0 0 0 3px rgba(251,191,36,.0);}50%{box-shadow:inset 0 0 0 4px rgba(251,191,36,.95);}}
+.stamps.dim{opacity:.4;}
+.stamps.guia-st .stamp{animation:stPulse 1.4s infinite;}
+@keyframes stPulse{0%,100%{box-shadow:0 2px 0 rgba(0,0,0,.13);}50%{box-shadow:0 0 0 3px rgba(37,99,235,.45);}}
+.stamp.compacto{padding:3px 10px;opacity:.72;}
+.stamp.compacto .st-ic{font-size:15px;}
+.stamp.compacto .st-s{display:none;}
+.stamp.compacto:hover{opacity:1;}
+.stamp.compacto:hover .st-s{display:block;}
+.stamp.destaque{animation:stPulse 1.1s infinite;}
+.decl-cnt{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:2px 0 8px;padding:6px 10px;border-radius:6px;background:#f1f5f9;font-size:11.5px;color:#334155;}
+.decl-cnt.tem{background:#fef2f2;color:#7f1d1d;}
+.decl-cnt .dc-ok{margin-left:auto;font-weight:700;color:#166534;}
+.decl-cnt .dc-btn{margin-left:auto;border:1px solid #94a3b8;background:#fff;border-radius:99px;padding:3px 11px;font-size:11px;font-weight:700;color:#334155;cursor:pointer;font-family:inherit;}
+.decl-cnt .dc-btn:hover{background:#dbeafe;border-color:#2563eb;color:#1d4ed8;}
+.resumo1{margin-top:9px;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:700;text-align:left;line-height:1.45;}
+.resumo1.ok{background:#dcfce7;color:#166534;}.resumo1.mid{background:#fef3c7;color:#92400e;}.resumo1.err{background:#fee2e2;color:#991b1b;}
+.gab-det{margin-top:6px;text-align:left;}
+.gab-det summary{cursor:pointer;font-size:11px;font-weight:700;color:#1d4ed8;padding:3px 2px;}
+.gab-det .gab{margin-top:4px;}
+
+.dl-img-grad{background:linear-gradient(to bottom,rgba(15,23,42,.78) 0%,rgba(15,23,42,.25) 32%,rgba(15,23,42,0) 52%)!important;}
+.dl-img-label{top:0;bottom:auto!important;}
+
+/* ════════════════════════════════════════════
+   v20.4 · correções apontadas pela avaliação técnica
+   TF06/TF15: janelas de Opções e Recordes abriam atrás do menu inicial
+   TC05: layout em telas de celular
+════════════════════════════════════════════ */
+#ov-opcoes,#ov-records{z-index:1100;}
+@media(max-width:900px){
+  #tela-dash{grid-template-columns:1fr;overflow-y:auto;}
+  #tela-dash .dl,#tela-dash .dr{overflow:visible;}
+  #tela-caso .cf,#tela-caso .ch,#tela-caso .cd{overflow:visible;}
+  #hdr{height:auto;flex-wrap:wrap;row-gap:6px;column-gap:10px;padding:7px 12px;}
+  #hdr .hdr-sub{display:none;}
+  #hdr .hpill{height:auto;padding:3px 9px;}
+  #hdr .hpill-val,#hdr .hdr-btn,#btn-pausa{white-space:nowrap;}
+  #hdr .hdr-btn,#btn-pausa{padding:4px 8px;}
+  #hdr .hdr-right{flex-wrap:wrap;gap:4px;}
+  #kbd-toggle{display:none;}
+}
+@media(max-width:600px){
+  #hdr{height:auto;flex-wrap:wrap;row-gap:6px;padding:7px 10px;}
+  #hdr .hdr-sub{display:none;}
+  #hdr .hdr-name{font-size:12px;white-space:nowrap;}
+  #hdr .hdr-right{width:100%;flex-wrap:wrap;gap:4px;justify-content:flex-start;}
+  #hdr .hpill{padding:3px 8px;height:auto;gap:4px;}
+  #hdr .hpill-top{font-size:7px;}
+  #hdr .hpill-val{font-size:11px;}
+  #hdr .hdr-btn,#btn-pausa{padding:4px 8px;}
+  #kbd-toggle{display:none;}
+  #fila-strip,#info-strip{padding-left:10px;padding-right:10px;}
+  #info-strip{flex-wrap:wrap;row-gap:4px;}
+  #tela-caso .cf-avatar-area{flex-direction:row;gap:12px;padding:10px 12px;align-items:center;}
+  #tela-caso .cf-photo{width:64px;height:76px;}
+  #tela-caso .cf-sec{padding:8px 12px;}
+}
+.lang-sw{display:flex;gap:8px;justify-content:center;margin:14px 0 6px;}
+.lang-sw button{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#e2e8f0;cursor:pointer;}
+.lang-sw button.on{background:#2563eb;border-color:#2563eb;color:#fff;}
+</style>
+</head>
+<body>
+<div id="death-flash"></div><div id="boss-banner"></div><div id="streak-badge"></div><div id="notif"></div>
+
+<!-- MENU -->
+<div id="tela-menu">
+  <div class="menu-wrap">
+    <div class="menu-logo-box">
+      <img src="{{asset:logo.png}}" style="width:48px;height:48px;border-radius:10px;object-fit:cover;">
+      <div class="menu-logo-text">
+        <div class="menu-logo-title">FRONTEIRA DA ESPERANÇA</div>
+        <div class="menu-logo-sub">Gestão Humanitária em Roraima</div>
+      </div>
+    </div>
+    <div class="menu-sep"></div>
+    <div class="menu-tagline">Seu primeiro dia como técnico(a) de acolhimento em Boa Vista, RR.<br>Acolha, oriente, confira documentos e denuncie quem explora.</div>
+    <div class="menu-btns">
+      <button class="menu-btn m-jogar" onclick="menuJogar()"><span class="bi">▶</span><span class="bl">Novo Jogo</span><span class="ba">→</span></button>
+      <button class="menu-btn m-cont" id="btn-continuar" onclick="menuContinuar()" disabled><span class="bi">⏸</span><span class="bl">Continuar</span><span class="ba" id="continuar-info">Sem save</span></button>
+      <button class="menu-btn m-rec" onclick="menuRecords()"><span class="bi">🏆</span><span class="bl">Recordes</span><span class="ba">→</span></button>
+      <button class="menu-btn m-opt" onclick="menuOpcoes()"><span class="bi">⚙️</span><span class="bl">Opções</span><span class="ba">→</span></button>
+    </div>
+    <div class="lang-sw"><button data-l="pt" onclick="setLang('pt')">🇧🇷 Português</button><button data-l="es" onclick="setLang('es')">🇪🇸 Español</button></div>
+    <div class="menu-ver">v21.0 · Mateus Moraes de Moura · 2019027100 · UFRR 2025</div>
+  </div>
+</div>
+
+<!-- RECORDS -->
+<div class="ov off" id="ov-records">
+  <div class="modal" style="max-width:420px;"><h2>🏆 Recordes</h2><p>Suas melhores partidas.</p>
+    <div id="records-list"></div>
+    <div style="display:flex;gap:7px;justify-content:center;margin-top:10px;">
+      <button class="mbtn mbtn-sec" onclick="fecharOv('ov-records')">Voltar</button>
+      <button class="mbtn mbtn-danger" onclick="limparRecords()">Limpar</button>
+    </div>
+  </div>
+</div>
+
+<!-- OPÇÕES -->
+<div class="ov off" id="ov-opcoes">
+  <div class="modal" style="max-width:390px;text-align:left;"><h2>⚙️ Opções</h2>
+    <div class="opt-section"><div class="opt-sec-title">Jogabilidade</div>
+      <div class="opt-row"><div><div class="opt-lbl">Dificuldade</div><div class="opt-desc-txt">Afeta custo e velocidade dos timers</div></div><select class="opt-select" id="opt-dificuldade" onchange="salvarOpcoes()"><option value="facil">Fácil</option><option value="normal" selected>Normal</option><option value="dificil">Difícil</option></select></div>
+      <div class="opt-row"><div><div class="opt-lbl">Timer críticos</div><div class="opt-desc-txt">Contagem regressiva nos casos críticos</div></div><button class="opt-toggle on" id="opt-timer" onclick="toggleOpt('opt-timer')"></button></div>
+      <div class="opt-row"><div><div class="opt-lbl">Mostrar legislação</div><div class="opt-desc-txt">Exibe artigos de lei nos casos</div></div><button class="opt-toggle on" id="opt-leis" onclick="toggleOpt('opt-leis')"></button></div>
+    </div>
+    <div class="opt-section"><div class="opt-sec-title">Interface e Som</div>
+      <div class="opt-row"><div><div class="opt-lbl">Som</div><div class="opt-desc-txt">Efeitos sonoros das decisões</div></div><button class="opt-toggle on" id="opt-som-cfg" onclick="toggleOptSom()"></button></div>
+      <div class="opt-row"><div><div class="opt-lbl">Animações</div><div class="opt-desc-txt">Flash e efeitos visuais</div></div><button class="opt-toggle on" id="opt-anim" onclick="toggleOpt('opt-anim')"></button></div>
+      <div class="opt-row"><div><div class="opt-lbl">Consequências</div><div class="opt-desc-txt">Mostrar resultado após cada decisão</div></div><button class="opt-toggle on" id="opt-conseq" onclick="toggleOpt('opt-conseq')"></button></div>
+    </div>
+    <div class="opt-section"><div class="opt-sec-title">Dados</div>
+      <div class="opt-row"><div><div class="opt-lbl">Apagar save</div></div><button class="mbtn mbtn-danger" style="padding:5px 11px;font-size:11px;" onclick="apagarSave()">Apagar</button></div>
+    </div>
+    <div style="text-align:center;margin-top:8px;"><button class="mbtn" onclick="fecharOv('ov-opcoes')">Fechar</button></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div id="hdr" style="display:none;">
+  <div class="hdr-brand">
+    <img src="{{asset:logo.png}}" style="width:32px;height:32px;border-radius:6px;object-fit:cover;">
+    <div><div class="hdr-name">FRONTEIRA DA ESPERANÇA</div><div class="hdr-sub">Gestão Humanitária em Roraima</div></div>
+  </div>
+  <div class="hdr-right">
+    <div class="hpill"><span class="hpill-icon">📅</span><div class="hpill-label"><span class="hpill-top">DIA</span><span class="hpill-val" id="s-dia">1 / 10</span></div></div>
+    <div class="hpill"><span class="hpill-icon">⭐</span><div class="hpill-label"><span class="hpill-top">REPUTAÇÃO</span><span class="hpill-val gold" id="s-pts">50 / 100</span></div></div>
+    <div class="hpill"><span class="hpill-icon">⚡</span><div class="hpill-label"><span class="hpill-top">PRESSÃO</span><span class="hpill-val" id="s-pressao-hdr">20 / 100</span></div></div>
+    <button id="btn-pausa" onclick="togglePausa()">⏸ Pausa</button>
+    <button class="hdr-btn" id="btn-som" onclick="toggleSom()">🔊</button>
+    <button class="hdr-btn" id="btn-manual" onclick="abrirManual()" title="Manual do Abrigo [M]">📖 Manual</button>
+    <button class="hdr-btn" id="kbd-toggle" onclick="toggleKbdHint()">⌨</button>
+    <button class="hdr-btn" onclick="voltarMenuConfirm()">☰ Menu</button>
+  </div>
+</div>
+
+<!-- TELA 1: DASHBOARD -->
+<div id="tela-dash" style="display:none;">
+  <div class="dl">
+    <div class="dl-img-area">
+      <img src="{{asset:abrigo.jpg}}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;object-position:42% 55%;">
+      <div class="dl-img-grad"></div>
+      <div class="dl-img-label">
+        <div class="dl-img-eyebrow">Abrigo Humanitário</div>
+        <div class="dl-img-title">Boa Vista<br>Roraima</div>
+      </div>
+    </div>
+    <div class="dl-block">
+      <div class="dl-block-title">Visão Geral do Abrigo</div>
+      <div class="dl-block-text">Monitore os principais indicadores e tome decisões estratégicas.</div>
+    </div>
+    <div class="dl-block">
+      <div class="dl-obj-title">Seu Objetivo</div>
+      <div class="dl-block-text">Você é o(a) novato(a) do abrigo. Em <strong style="color:#fff">10 dias</strong>, aprenda a acolher segundo as normas da ONU, ajudar quem tem qualificação a trabalhar, conferir documentos e denunciar quem explora.</div>
+    </div>
+    <div class="dl-space"></div>
+    <button class="dl-start" onclick="irParaCasos()">▶ INICIAR DIA <span id="dash-dia-num">1</span></button>
+  </div>
+  <div class="dc">
+    <div class="dc-info-card">
+      <div class="dc-info-icon">📅</div>
+      <div>
+        <div class="dc-info-tag" id="d-tag">INFORMAÇÕES DO DIA · DIA 1 / 10</div>
+        <div class="dc-info-title" id="d-titulo">Um novo dia começa no abrigo.</div>
+        <div class="dc-info-sub" id="d-sub">Novas histórias, novos desafios.</div>
+      </div>
+    </div>
+    <div class="dc-sit-hdr">SITUAÇÃO ATUAL</div>
+    <div class="dc-kpis">
+      <div class="dc-kpi green"><div class="dc-kpi-icon-wrap">💰</div><div><div class="dc-kpi-val" id="d-orc">R$ 5.000</div><div class="dc-kpi-lbl">Recursos financeiros disponíveis</div></div></div>
+      <div class="dc-kpi blue"><div class="dc-kpi-icon-wrap">🏠</div><div><div class="dc-kpi-val" id="d-vagas">20 / 30</div><div class="dc-kpi-lbl">Capacidade disponível do abrigo</div></div></div>
+      <div class="dc-kpi gold"><div class="dc-kpi-icon-wrap">⭐</div><div><div class="dc-kpi-val" id="d-rep">50 / 100</div><div class="dc-kpi-lbl">Reputação</div></div></div>
+      <div class="dc-kpi red"><div class="dc-kpi-icon-wrap">⚡</div><div><div class="dc-kpi-val" id="d-pressao">20 / 100</div><div class="dc-kpi-lbl">Pressão Operacional</div></div></div>
+    </div>
+    <div class="dc-fila-card">
+      <div class="dc-fila-speaker">📢</div>
+      <div class="dc-fila-body"><div class="dc-fila-title">Fila de Atendimento</div><div class="dc-fila-sub" id="d-fila-sub">Existem pessoas aguardando atendimento. Analise cada caso com atenção.</div></div>
+      <div><div class="dc-fila-badge" id="d-fila-num">5</div><div class="dc-fila-badge-lbl">PESSOAS</div></div>
+    </div>
+    <div class="dc-dica"><span class="dc-dica-icon">💡</span><div class="dc-dica-txt" id="d-dica">Priorize os casos mais vulneráveis e mantenha seus recursos equilibrados. Cada decisão importa!</div></div>
+    <div class="dc-quote"><span class="dc-quote-mark-open">"</span><div class="dc-quote-txt" id="d-quote">A empatia é o primeiro passo para transformar realidades.</div><span class="dc-quote-mark-close">"</span></div>
+  </div>
+  <div class="dr">
+    <div class="dr-section">
+      <div class="dr-section-title">RECURSOS DO ABRIGO</div>
+      <div class="dr-res"><div class="dr-res-dot green">💰</div><div class="dr-res-body"><div class="dr-res-row"><span class="dr-res-name">Orçamento</span><span class="dr-res-val" id="dr-orc-val">R$ 5.000 / R$ 10.000</span></div><div class="dr-res-track"><div class="dr-res-fill" id="dr-orc" style="width:50%;background:#16a34a;"></div></div></div></div>
+      <div class="dr-res"><div class="dr-res-dot blue">🏠</div><div class="dr-res-body"><div class="dr-res-row"><span class="dr-res-name">Vagas Disponíveis</span><span class="dr-res-val" id="dr-ab-val">10 / 30</span></div><div class="dr-res-track"><div class="dr-res-fill" id="dr-ab" style="width:33%;background:#2563eb;"></div></div></div></div>
+      <div class="dr-res"><div class="dr-res-dot amber">👥</div><div class="dr-res-body"><div class="dr-res-row"><span class="dr-res-name">Equipe</span><span class="dr-res-val" id="dr-eq-val">70 / 100</span></div><div class="dr-res-track"><div class="dr-res-fill" id="dr-eq" style="width:70%;background:#d97706;"></div></div></div></div>
+      <div class="dr-res"><div class="dr-res-dot purple">❤️</div><div class="dr-res-body"><div class="dr-res-row"><span class="dr-res-name">Apoio Psicossocial</span><span class="dr-res-val" id="dr-rep-val">60 / 100</span></div><div class="dr-res-track"><div class="dr-res-fill" id="dr-rep" style="width:60%;background:#7c3aed;"></div></div></div></div>
+    </div>
+    <div class="dr-section">
+      <div class="dr-section-title">AÇÕES RÁPIDAS</div>
+      <button class="dr-acao" onclick="irParaCasos()"><span class="dr-acao-icon">👤</span><div><div class="dr-acao-title">Ver Fila de Atendimento</div><div class="dr-acao-sub">Casos aguardando decisão</div></div><span class="dr-acao-arr">›</span></button>
+      <button class="dr-acao" onclick="notif('Relatório disponível ao final dos 10 dias.','ok')"><span class="dr-acao-icon">📊</span><div><div class="dr-acao-title">Ver Relatório do Abrigo</div><div class="dr-acao-sub">Indicadores e estatísticas</div></div><span class="dr-acao-arr">›</span></button>
+      <button class="dr-acao" id="d-btn-upg" style="display:none;" onclick="mostrarUpgrade()"><span class="dr-acao-icon">⭐</span><div><div class="dr-acao-title">Melhorias Disponíveis</div><div class="dr-acao-sub">Escolha um upgrade</div></div><span class="dr-acao-arr">›</span></button>
+    </div>
+    <div class="dr-section" id="dr-caderno">
+      <div class="dr-section-title">📓 CADERNO DO NOVATO</div>
+      <div class="cad-grid">
+        <div class="cad-chip"><b id="cad-docs">0</b><span>📄 Docs conferidos</span></div>
+        <div class="cad-chip"><b id="cad-emp">0</b><span>💼 Empregos</span></div>
+        <div class="cad-chip"><b id="cad-den">0</b><span>🚨 Denúncias</span></div>
+        <div class="cad-chip"><b id="cad-pro">0</b><span>🔎 Provas (rede)</span></div>
+      </div>
+      <div class="dr-res-row" style="margin-top:10px;"><span class="dr-res-name">🧭 Conduta (normas da ONU)</span><span class="dr-res-val" id="cad-etica-val">50 / 100</span></div>
+      <div class="dr-res-track"><div class="dr-res-fill" id="cad-etica" style="width:50%;background:#0891b2;"></div></div>
+    </div>
+    <div class="dr-section">
+      <div class="dr-section-title" style="margin-bottom:5px;">PRESSÃO OPERACIONAL</div>
+      <div class="dr-press-track"><div class="dr-press-fill" id="dr-pressao" style="width:20%;"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILA STRIP -->
+<div id="fila-strip" style="display:none;">
+  <div class="fs-top">
+    <span class="fs-lbl" id="fila-lbl">Fila de Atendimento</span>
+    <span class="fs-badge" id="badge-fase">Dia 1</span>
+    <div id="fila-nav">
+      <button class="fn-btn" id="nav-prev" onclick="navegarFila(-1)">◀</button>
+      <span id="fila-idx">—</span>
+      <button class="fn-btn" id="nav-next" onclick="navegarFila(1)">▶</button>
+    </div>
+  </div>
+  <div id="fila-cards"></div>
+</div>
+
+<!-- INFO STRIP -->
+<div id="info-strip" style="display:none;">
+  <span class="is-lbl">Casos</span>
+  <div id="prog-casos"></div><span id="prog-texto">—/—</span>
+  <div class="is-div"></div>
+  <span class="is-lbl">Combo</span>
+  <div id="combo-pips"><div class="cpip" id="pip0"></div><div class="cpip" id="pip1"></div><div class="cpip" id="pip2"></div><div class="cpip" id="pip3"></div><div class="cpip" id="pip4"></div></div>
+  <span id="combo-msg"></span>
+  <div class="is-div"></div>
+  <span class="is-lbl">Pressão</span>
+  <div id="pressao-track-strip"><div id="pressao-fill-strip"></div></div>
+  <span id="pressao-val-strip">0%</span>
+</div>
+
+<!-- TELA 2: CASO -->
+<div id="tela-caso" style="display:none;">
+  <div class="cf">
+    <div class="cf-hdr">PESSOA NO BALCÃO</div>
+    <div id="ficha-content"><div style="padding:28px 14px;text-align:center;color:rgba(255,255,255,.35);font-size:12px;line-height:2;"><div style="font-size:30px;margin-bottom:8px;">👆</div>Selecione um imigrante<br>na fila acima</div></div>
+  </div>
+  <div class="ch">
+    <div id="hist-content"><div style="padding:28px 18px;text-align:center;color:var(--txt-light);font-size:12px;line-height:2;"><div style="font-size:30px;margin-bottom:8px;">📋</div>História do Caso<br>aparecerá aqui</div></div>
+  </div>
+  <div class="cd">
+    <div class="cd-hdr">CARIMBOS</div>
+    <div id="dec-content"><div style="padding:18px 13px;color:var(--txt-light);font-size:11px;text-align:center;line-height:1.8;">Selecione um caso<br>para ver as opções.</div></div>
+    <div id="diario">
+      <div id="diario-header">📋 Diário de Decisões</div>
+      <div id="diario-list"><div class="di-empty">Suas decisões<br>aparecerão aqui.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BARRA DE AÇÕES -->
+<div id="acoes" style="display:none;">
+  <div class="act-row">
+    <button class="btn btn-help" id="btn-ajudar" disabled onclick="decidirAjudar()">
+      <span class="btn-tip" id="btn-ajudar-tooltip">Vai acolher ou dar assistência<br>conforme os recursos disponíveis.</span>
+      <span class="btn-kbd">1</span>
+      <span id="btn-ajudar-icon">🤝</span> Ajudar
+      <br><small id="btn-ajudar-sub" style="font-weight:400;font-size:10px;">Calcular melhor apoio</small>
+    </button>
+    <button class="btn btn-enc" id="btn-encaminhar" disabled onclick="decidir('encaminhar')">
+      <span class="btn-tip">Sem custo direto.<br>⚠️ Críticos se perdem!</span>
+      <span class="btn-kbd">2</span>
+      ➡️ Encaminhar<br><small style="font-weight:400;font-size:10px;">Outro serviço</small>
+    </button>
+    <button class="btn btn-tool" id="btn-conferir" disabled onclick="decidir('verificar')">
+      <span class="btn-tip">Revela documento, qualificação<br>e sinais de risco. Custa pouca equipe.</span>
+      <span class="btn-kbd">3</span>
+      📄 Conferir<br><small id="btn-conferir-sub">Situação real</small>
+    </button>
+    <button class="btn btn-tool btn-trab" id="btn-trabalho" disabled onclick="decidir('emprego')">
+      <span class="btn-tip">Encaminha ao trabalho. Rende mais com<br>qualificação e documentos em dia.</span>
+      <span class="btn-kbd">4</span>
+      💼 Trabalho<br><small id="btn-trabalho-sub">Qualificação</small>
+    </button>
+    <button class="btn btn-tool btn-den" id="btn-denunciar" disabled onclick="decidir('denunciar')">
+      <span class="btn-tip">Aciona PF / Conselho Tutelar / Disque 100.<br>⚠️ Denúncia sem base é penalizada.</span>
+      <span class="btn-kbd">5</span>
+      🚨 Denunciar<br><small id="btn-denunciar-sub">Proteger vítima</small>
+    </button>
+  </div>
+  <button id="btn-acolher" style="display:none" onclick="decidir('acolher')"></button>
+  <button id="btn-estabilizar" style="display:none" onclick="decidir('estabilizar')"></button>
+  <button class="btn btn-next" id="btn-next" disabled onclick="proximoDia()">Próximo Dia → <span style="font-size:10px;opacity:.4;font-weight:400;">[Space]</span></button>
+  <div class="act-hint" id="act-hint">Selecione um imigrante para começar</div>
+</div>
+
+<!-- LEGADO -->
+<div id="res" style="display:none!important;"><div><span id="rv-orcamento"></span><span id="trend-orcamento"></span><div id="tip-orcamento"></div><div id="rf-orcamento"></div></div><div><span id="rv-abrigo"></span><span id="trend-abrigo"></span><div id="tip-abrigo"></div><div id="rf-abrigo"></div></div><div><span id="rv-equipe"></span><span id="trend-equipe"></span><div id="tip-equipe"></div><div id="rf-equipe"></div></div><div><span id="rv-reputacao"></span><span id="trend-reputacao"></span><div id="tip-reputacao"></div><div id="rf-reputacao"></div></div></div>
+<div id="fila-area" style="display:none!important;"></div><div id="progresso-dia" style="display:none!important;"></div><div id="combo-bar" style="display:none!important;"></div><div id="main" style="display:none!important;"><div id="detalhe"></div></div>
+
+<!-- TUTORIAL -->
+<div class="ov off" id="ov-tut">
+  <div class="modal">
+    <h2>🌎 Como atender no balcão</h2>
+    <p>Uma pessoa por vez chega ao seu balcão. <strong style="color:var(--txt-dark)">Os recursos são limitados e cada carimbo muda uma vida.</strong></p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 10px;">
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;">🔍</div><div style="font-size:11px;font-weight:700;color:#1d4ed8;">1 · Examinar [E]</div><div style="font-size:9.5px;color:#6b7280;margin-top:2px;line-height:1.4;">Abra os documentos. Custa um pouco de equipe.</div></div>
+      <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;">🚩</div><div style="font-size:11px;font-weight:700;color:#b91c1c;">2 · Marcar</div><div style="font-size:9.5px;color:#6b7280;margin-top:2px;line-height:1.4;">Clique nas linhas que parecem sinais de risco.</div></div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;">🔖</div><div style="font-size:11px;font-weight:700;color:#166534;">3 · Carimbar</div><div style="font-size:9.5px;color:#6b7280;margin-top:2px;line-height:1.4;">Escolha a decisão. Teclas 1 a 5.</div></div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;">
+      <div class="tut-step" style="padding:8px 12px;border-bottom:1px solid var(--border);"><div class="tut-icon">🏠</div><div><div class="tut-title">Acolher · Assistência · Encaminhar</div><div class="tut-desc">Teto completo, apoio básico ou encaminhamento sem custo. Críticos podem se perder se forem encaminhados.</div></div></div>
+      <div class="tut-step" style="padding:8px 12px;border-bottom:1px solid var(--border);"><div class="tut-icon">💼</div><div><div class="tut-title">Trabalho</div><div class="tut-desc">Para quem tem qualificação e documentos em dia. Rende mais pontos e poupa vagas.</div></div></div>
+      <div class="tut-step" style="padding:8px 12px;border-bottom:1px solid var(--border);"><div class="tut-icon">🚨</div><div><div class="tut-title">Denunciar</div><div class="tut-desc">Só com sinais reais marcados. Protege a vítima. Denúncia sem base é penalizada.</div></div></div>
+      <div class="tut-step" style="padding:8px 12px;"><div class="tut-icon">📖</div><div><div class="tut-title">Manual do Abrigo [M]</div><div class="tut-desc">Sinais de risco, o que NÃO é sinal e a quem denunciar. Consulte sempre.</div></div></div>
+    </div>
+    <button class="mbtn" onclick="fecharOv('ov-tut');iniciarJogoReal()" style="width:100%;padding:13px;font-size:14px;">▶ Abrir o balcão</button>
+  </div>
+</div>
+
+<!-- MANUAL DO ABRIGO -->
+<div class="ov off" id="ov-manual">
+  <div class="modal man-box">
+    <h2>📖 Manual do Abrigo</h2>
+    <p style="text-align:center;">Abrigo Esperança · uso interno · tecla <b>M</b></p>
+    <h3>COMO ATENDER</h3>
+    <ul><li><b>1 · Examinar (E):</b> abre identificação, qualificação e declarações.</li><li><b>2 · Marcar:</b> clique nas declarações que sejam sinais de risco.</li><li><b>3 · Carimbar (1 a 5):</b> escolha a decisão.</li></ul>
+    <h3>OS CARIMBOS</h3>
+    <ul>
+      <li>🏠 <b>Acolher:</b> abrigo completo. Gasta vagas e orçamento, e a reputação sobe.</li>
+      <li>🩺 <b>Assistência:</b> comida e higiene pela metade do custo, sem teto.</li>
+      <li>➡️ <b>Encaminhar:</b> sem custo. Casos críticos podem se perder.</li>
+      <li>💼 <b>Trabalho:</b> para quem tem qualificação e documentos em dia. Não vale para casos críticos nem para menores.</li>
+      <li>🚨 <b>Denunciar:</b> só com sinais reais marcados. Protege a vítima, e a culpa é de quem explora.</li>
+    </ul>
+    <h3>SINAIS DE RISCO (MARQUE)</h3>
+    <ul>
+      <li>Documentos guardados por outra pessoa.</li>
+      <li>Dívida pela viagem, ou “passagem paga” com condições.</li>
+      <li>Contrato só de boca, salário bom demais ou pedido de segredo.</li>
+      <li>Outra pessoa responde por ela, ou há medo e marcas no corpo.</li>
+      <li>Adulto sem parentesco comprovado com criança ou adolescente, ou documentos que não batem.</li>
+      <li>Impedem a conversa a sós com a equipe.</li>
+    </ul>
+    <h3>NÃO SÃO SINAIS DE CRIME</h3>
+    <div class="man-no">Pobreza, sotaque, pouco português, nervosismo e cansaço, viajar sozinho(a) com filhos, aparência ou nacionalidade. Marcar isso é preconceito e custa caro (Convenção de 1951, Art. 3º).</div>
+    <h3>DOCUMENTOS</h3>
+    <ul>
+      <li><b>Protocolo válido:</b> autoriza a Carteira de Trabalho provisória (Lei 9.474/1997, Art. 21, §1º).</li>
+      <li><b>Vencido:</b> renovar na Polícia Federal antes da vaga.</li>
+      <li><b>Sem protocolo:</b> orientar a solicitar refúgio. Ninguém é punido por entrada irregular (Convenção de 1951, Art. 31).</li>
+    </ul>
+    <h3>A QUEM DENUNCIAR</h3>
+    <ul>
+      <li>Tráfico de pessoas e aliciamento: <b>Polícia Federal</b> (Lei 13.344/2016).</li>
+      <li>Trabalho análogo ao de escravo: <b>PF e Ministério Público do Trabalho</b> (CP, Art. 149).</li>
+      <li>Crianças e adolescentes: <b>Conselho Tutelar</b> e <b>Disque 100</b> (ECA).</li>
+      <li>Violência contra a mulher: <b>Ligue 180</b> e Delegacia da Mulher.</li>
+    </ul>
+    <h3>PRINCÍPIOS</h3>
+    <p>Não discriminação · não-devolução · confidencialidade · unidade familiar · interesse superior da criança.</p>
+    <div style="text-align:center;"><button class="mbtn" onclick="fecharManual()">Entendi</button></div>
+  </div>
+</div>
+
+<!-- FIM DO DIA -->
+<div class="ov off" id="ov-dia"><div class="modal" style="max-width:440px;"><h2 id="dia-ttl">Fim do dia</h2><div id="dia-body"></div><div style="text-align:center;"><button class="mbtn" onclick="fecharRelDia()">Continuar ▶</button></div></div></div>
+
+<!-- CENAS (HISTÓRIA) -->
+<div class="ov off" id="ov-cena">
+  <div class="cena-box">
+    <div class="cena-top"><span id="cena-cap"></span><button class="cena-skip" onclick="pularCena()">Pular ⏭</button></div>
+    <div class="cena-titulo" id="cena-titulo"></div>
+    <div class="cena-local" id="cena-local"></div>
+    <div class="cena-stage" id="cena-stage">
+      <div class="cena-avatar" id="cena-avatar">📖</div>
+      <div class="cena-fala">
+        <div class="cena-nome" id="cena-nome"></div>
+        <div class="cena-cargo" id="cena-cargo"></div>
+        <div class="cena-texto" id="cena-texto"></div>
+      </div>
+    </div>
+    <div class="cena-acoes" id="cena-acoes"></div>
+    <div class="cena-prog" id="cena-prog"></div>
+  </div>
+</div>
+
+<!-- UPGRADE -->
+<div class="ov off" id="ov-upgrade"><div class="modal"><h2>⭐ Escolha um Recurso</h2><p id="upg-sub"></p><div class="upg-grid" id="upg-grid"></div></div></div>
+
+<!-- EVENTO -->
+<div class="ov off" id="ov-evento"><div class="modal"><h2 id="ev-titulo"></h2><p id="ev-desc"></p><div class="ev-choices" id="ev-choices"></div></div></div>
+
+<!-- CONSEQUÊNCIA -->
+<div class="ov off" id="ov-consequencia">
+  <div class="modal" style="max-width:400px;text-align:center;">
+    <div style="font-size:30px;margin-bottom:7px;" id="cq-icon"></div>
+    <h2 id="cq-titulo"></h2><p id="cq-desc"></p>
+    <div id="cq-impacto" style="background:#f8fafc;border-radius:9px;padding:11px;font-size:12px;margin-bottom:12px;text-align:left;border:1px solid var(--border);"></div>
+    <button class="mbtn" onclick="fecharConsequencia()">Continuar</button>
+  </div>
+</div>
+
+<!-- RELATÓRIO FINAL -->
+<div class="ov off" id="ov-fim">
+  <div class="modal" style="max-width:720px;padding:0;text-align:left;overflow:hidden;border-radius:16px;">
+    <div class="fim-hdr">
+      <div class="fim-brand"><img src="{{asset:logo.png}}" style="width:26px;height:26px;border-radius:5px;object-fit:cover;"><div><div class="fim-brand-name">FRONTEIRA DA ESPERANÇA</div><div class="fim-brand-sub">Gestão Humanitária em Roraima</div></div></div>
+      <div class="fim-hdr-label" id="fim-titulo">RELATÓRIO FINAL</div>
+    </div>
+    <div class="fim-cols">
+      <div class="fim-cg">
+        <div class="fim-result-title ok" id="fim-result-lbl">PARABÉNS!</div>
+        <div class="fim-result-sub" id="fim-result-sub">Você completou os 10 dias de gestão do abrigo.</div>
+        <div class="fim-circle" id="fim-circle"><span class="fim-letter" id="fim-letter">B</span></div>
+        <div class="fim-grade-lbl">DESEMPENHO GERAL</div>
+        <div class="fim-grade-title" id="fim-grade-title">Gestor em Desenvolvimento</div>
+      </div>
+      <div class="fim-cr">
+        <h3>RESUMO DA GESTÃO</h3>
+        <div class="fim-stat"><span class="fim-stat-icon">📅</span><span class="fim-stat-lbl">Dias completados</span><span class="fim-stat-val" id="fim-s-dias">10 / 10</span></div>
+        <div class="fim-stat"><span class="fim-stat-icon">👥</span><span class="fim-stat-lbl">Casos atendidos</span><span class="fim-stat-val" id="fim-s-atendidos">0</span></div>
+        <div class="fim-stat"><span class="fim-stat-icon">⭐</span><span class="fim-stat-lbl">Reputação final</span><span class="fim-stat-val" id="fim-s-rep">78 / 100</span></div>
+        <div class="fim-stat"><span class="fim-stat-icon">💰</span><span class="fim-stat-lbl">Recursos finais</span><span class="fim-stat-val" id="fim-s-recursos">R$ 2.450</span></div>
+        <div class="fim-stat"><span class="fim-stat-icon">⚠️</span><span class="fim-stat-lbl">Acolh. · Empregos · Denúncias</span><span class="fim-stat-val" id="fim-s-eventos">6</span></div>
+        <div class="fim-stat"><span class="fim-stat-icon">🔴</span><span class="fim-stat-lbl">Nível de pressão final</span><span class="fim-stat-val" id="fim-s-pressao">45 / 100</span></div>
+        <div id="fim-stats" style="display:none;"></div><div id="fim-grade" style="display:none;"></div><div id="fim-pts" style="display:none;"></div>
+      </div>
+      <div class="fim-ca">
+        <h3>AVALIAÇÃO</h3>
+        <div class="fim-aval-text" id="fim-ref">Sua gestão foi boa.</div>
+        <div class="fim-img" style="padding:0;overflow:hidden;"><img src="{{asset:abrigo.jpg}}" style="width:100%;height:100%;object-fit:cover;object-position:50% 90%;border-radius:9px;"></div>
+        <div class="fim-edu"><div class="fim-edu-lbl">🧠 Reflexão Educacional</div><div class="fim-aval-text" id="fim-ref-edu" style="font-size:11px;margin-top:3px;"></div></div>
+      </div>
+    </div>
+    <div class="fim-foot">
+      <button class="mbtn" onclick="iniciarJogoReal();fecharOv('ov-fim')">🔄 Jogar Novamente</button>
+      <button class="mbtn mbtn-sec" onclick="fecharOv('ov-fim');irParaMenu()">☰ Voltar ao Menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="pausa-overlay" class="off"><div class="pausa-box"><h2>⏸ Pausado</h2><p>O jogo está pausado. Timers suspensos.</p><button class="mbtn" onclick="togglePausa()">▶ Continuar</button><button class="mbtn mbtn-sec" style="margin-top:7px;" onclick="togglePausa();voltarMenuConfirm()">☰ Menu</button></div></div>
+<div id="kbd-hint"><div class="kbd-row"><span class="kbd-key">E</span> Examinar</div><div class="kbd-row"><span class="kbd-key">1</span> Acolher</div><div class="kbd-row"><span class="kbd-key">2</span> Assistência</div><div class="kbd-row"><span class="kbd-key">3</span> Encaminhar</div><div class="kbd-row"><span class="kbd-key">4</span> Trabalho</div><div class="kbd-row"><span class="kbd-key">5</span> Denunciar</div><div class="kbd-row"><span class="kbd-key">M</span> Manual</div><div class="kbd-row"><span class="kbd-key">Space</span> Próximo dia</div><div class="kbd-row"><span class="kbd-key">← →</span> Navegar fila</div><div class="kbd-row"><span class="kbd-key">P</span> Pausar</div></div>
+<div id="confirm-bar"><div><div class="cb-msg">⚠️ Encaminhar caso CRÍTICO?</div><div class="cb-sub">Este imigrante pode se perder no sistema.</div></div><span id="confirm-countdown"></span><div class="cb-btns"><button class="cb-btn cb-btn-cancel" onclick="cancelarConfirm()">Cancelar</button><button class="cb-btn cb-btn-confirm" onclick="confirmarEncaminhar()">Encaminhar mesmo assim</button></div></div>
+<script type="text/plain" id="game-pt">{{JOGO_PT}}</script>
+<script type="text/plain" id="game-es">{{JOGO_ES}}</script>
+<script>
+/* v21 · seleção de idioma: carrega o roteiro do jogo em português ou espanhol */
+(function(){
+  var L='pt';try{L=localStorage.getItem('fronteira_lang')||'pt';}catch(e){}
+  if(L!=='es')L='pt';window.FE_LANG=L;
+  window.setLang=function(l){try{localStorage.setItem('fronteira_lang',l);}catch(e){}location.reload();};
+  if(L==='es'){
+    var D={{INTERFACE_ES}};
+    document.documentElement.lang='es';document.title=D['Fronteira da Esperança']||document.title;
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n,list=[];
+    while((n=w.nextNode()))list.push(n);
+    list.forEach(function(t){var p=t.parentNode;if(!p||p.tagName==='SCRIPT'||p.tagName==='STYLE')return;var k=t.nodeValue.trim();if(k&&D.hasOwnProperty(k))t.nodeValue=t.nodeValue.replace(k,D[k]);});
+    document.querySelectorAll('[title],[placeholder],[aria-label],[alt]').forEach(function(e){['title','placeholder','aria-label','alt'].forEach(function(at){var v=e.getAttribute(at);if(v&&D.hasOwnProperty(v.trim()))e.setAttribute(at,D[v.trim()]);});});
+  }
+  document.querySelectorAll('.lang-sw button').forEach(function(bt){if(bt.getAttribute('data-l')===L)bt.classList.add('on');});
+  var sc=document.createElement('script');sc.text=document.getElementById('game-'+L).textContent;document.body.appendChild(sc);
+})();
+</script></body></html>
