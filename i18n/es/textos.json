@@ -84,7 +84,6 @@
  "Assistência de primeiros cuidados prestada. Conselho Tutelar acionado. Bebê aguarda em segurança.": "Se prestan los primeros cuidados. Se activa al Consejo Tutelar. La bebé espera en un lugar seguro.",
  "Transferida para UPA. Sistema lento. Bebê fica sem cuidado específico por horas.": "Trasladada a una UPA. Sistema lento. La bebé se queda sin cuidados específicos durante horas.",
  "Prof. Castillo": "Prof. Castillo",
- "Eduardo Castillo, 62, ex-reitor de universidade em Valencia. Chegou com sua esposa Lidia, 60, que tem Alzheimer em estágio inicial. Eduardo é cuidador integral. Ambos vieram para ser perto do filho estabelecido em Manaus — mas o filho sumiu.": "Eduardo Castillo, 62, ex rector de una universidad de Valencia. Llegó con su esposa Lidia, 60, que tiene Alzheimer en etapa inicial. Eduardo es su cuidador de tiempo completo. Vinieron para estar cerca de su hijo, que vive en Manaus — pero el hijo desapareció.",
  "Res. CONARE nº 36/2024 — prioridade para idosos. Art. 230 CF/88 — proteção ao idoso. Estatuto do Idoso Art. 3º — proteção integral.": "Res. CONARE nº 36/2024 — prioridad para adultos mayores. Art. 230 de la Constitución brasileña — protección al adulto mayor. Estatuto del Adulto Mayor Art. 3º — protección integral.",
  "O abrigo não tem estrutura de cuidado para Alzheimer. Acolher significa improviso. Encaminhar para serviço geriátrico sobrecarrega o SUS local. Contatar o filho ausente consome tempo da equipe.": "El albergue no tiene estructura para cuidar a una persona con Alzheimer. Acoger significa improvisar. Derivar a un servicio geriátrico sobrecarga el sistema público de salud local. Contactar al hijo ausente consume tiempo del equipo.",
  "Casal acolhido. Filho localizado em 3 dias — havia trocado de número. Família reunida em Manaus.": "La pareja es acogida. El hijo es localizado en 3 días — había cambiado de número. La familia se reúne en Manaus.",
@@ -743,7 +742,6 @@
  "<div class=\"pp-row\"><span>Profissão</span><b>": "<div class=\"pp-row\"><span>Profesión</span><b>",
  "<div class=\"pp-row\"><span>Comprovação</span><b>": "<div class=\"pp-row\"><span>Comprobación</span><b>",
  "Sem comprovação": "Sin comprobación",
- "<div class=\"pp-row\"><span>Trabalhar já?</span><b>": "<div class=\"pp-row\"><span>¿Trabajar ya?</span><b>",
  "Sim, documentos em dia": "Sí, documentos al día",
  "Após renovar o protocolo": "Después de renovar el protocolo",
  "Após regularizar documentos": "Después de regularizar los documentos",
@@ -804,5 +802,7 @@
  " sinais reais de risco e você não marcou nenhum.": " señales reales de riesgo y no marcaste ninguna.",
  "✔ Correto: não havia sinais de crime neste caso.": "✔ Correcto: no había señales de delito en este caso.",
  "✖ Você marcou ": "✖ Marcaste ",
- "</div><details class=\"gab-det\"><summary>Ver detalhes da conferência</summary>": "</div><details class=\"gab-det\"><summary>Ver detalles de la verificación</summary>"
+ "</div><details class=\"gab-det\"><summary>Ver detalhes da conferência</summary>": "</div><details class=\"gab-det\"><summary>Ver detalles de la verificación</summary>",
+ "Eduardo Castillo, 62, ex-reitor de universidade em Valencia. Chegou com sua esposa Lidia, 60, que tem Alzheimer em estágio inicial. Eduardo é cuidador integral. Ambos vieram para ficar perto do filho estabelecido em Manaus — mas o filho sumiu.": "Eduardo Castillo, 62, ex rector de una universidad de Valencia. Llegó con su esposa Lidia, 60, que tiene Alzheimer en etapa inicial. Eduardo es su cuidador de tiempo completo. Vinieron para estar cerca de su hijo, que vive en Manaus — pero el hijo desapareció.",
+ "<div class=\"pp-row\"><span>Pode trabalhar agora?</span><b>": "<div class=\"pp-row\"><span>¿Puede trabajar ahora?</span><b>"
 }

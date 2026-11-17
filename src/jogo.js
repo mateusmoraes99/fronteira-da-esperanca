@@ -298,7 +298,7 @@ const CASOS=[
   },
   {
     nome_base:'Prof. Castillo',prioridade:'grave',
-    historia:'Eduardo Castillo, 62, ex-reitor de universidade em Valencia. Chegou com sua esposa Lidia, 60, que tem Alzheimer em estágio inicial. Eduardo é cuidador integral. Ambos vieram para ser perto do filho estabelecido em Manaus — mas o filho sumiu.',
+    historia:'Eduardo Castillo, 62, ex-reitor de universidade em Valencia. Chegou com sua esposa Lidia, 60, que tem Alzheimer em estágio inicial. Eduardo é cuidador integral. Ambos vieram para ficar perto do filho estabelecido em Manaus — mas o filho sumiu.',
     lei:'Res. CONARE nº 36/2024 — prioridade para idosos. Art. 230 CF/88 — proteção ao idoso. Estatuto do Idoso Art. 3º — proteção integral.',
     dilema:'O abrigo não tem estrutura de cuidado para Alzheimer. Acolher significa improviso. Encaminhar para serviço geriátrico sobrecarrega o SUS local. Contatar o filho ausente consome tempo da equipe.',
     consequencias:{acolher:'Casal acolhido. Filho localizado em 3 dias — havia trocado de número. Família reunida em Manaus.',estabilizar:'Assistência básica. Lidia fica desorientada no ambiente novo. Eduardo exausto.',encaminhar:'Encaminhados ao CRAS. Fila de 3 semanas. Eduardo cuida sozinho sem apoio.'},
@@ -1139,7 +1139,7 @@ renderDetalhe=function(){
   var prof=profs[Math.floor(rng(sel.seed,20)*profs.length)];
 
   if(fichaEl)fichaEl.innerHTML=
-    '<div class="cf-avatar-area"><img class="cf-photo" src="'+retrato(sel,100,120)+'"><div class="cf-ven">🇻🇪 Venezuela</div>'
+    '<div class="cf-avatar-area"><div class="cf-photo-wrap"><img class="cf-photo" src="'+retrato(sel,100,120)+'"><div class="cf-ven">🇻🇪 Venezuela</div></div>'
     +'<div class="cf-name">'+sel.nomeDisplay+'</div><div class="cf-origem">'+cidade+'</div>'
     +'<div class="cf-chips"><span class="chip '+vColor[sel.prioridade]+'">'+prMap[sel.prioridade]+'</span></div></div>'
     +'<div class="cf-sec"><h4>SITUAÇÃO LEGAL</h4>'
@@ -1900,7 +1900,7 @@ function pessoaHTML(p,m){
   var estado={critico:"😰 Em desespero",grave:"😟 Preocupado(a)",moderado:"😕 Ansioso(a)",estavel:"😐 Resignado(a)"};
   var dias={critico:"10–20 dias a pé",grave:"7–14 dias",moderado:"3–7 dias",estavel:"1–3 dias"};
   var cl=p.prioridade;
-  return '<div class="cf-avatar-area"><img class="cf-photo" src="'+retrato(p,100,120)+'"><div class="cf-ven">🇻🇪 Venezuela</div>'
+  return '<div class="cf-avatar-area"><div class="cf-photo-wrap"><img class="cf-photo" src="'+retrato(p,100,120)+'"><div class="cf-ven">🇻🇪 Venezuela</div></div>'
     +'<div class="cf-name">'+p.nomeDisplay+'</div><div class="cf-origem">'+cidadeOrigem(p.seed)+'</div>'
     +'<div class="cf-chips"><span class="chip '+cl+'">'+prMap[cl]+"</span></div></div>"
     +'<div class="cf-sec"><h4>NO BALCÃO</h4>'
@@ -1938,7 +1938,7 @@ function mesaHTML(p,m){
   if(ex){
     h+='<div class="pp-row"><span>Profissão</span><b>'+m.prof+"</b></div>"
       +'<div class="pp-row"><span>Comprovação</span><b>'+(m.qual?m.qual+" ✔":"Sem comprovação")+"</b></div>"
-      +'<div class="pp-row"><span>Trabalhar já?</span><b>'+(m.doc==="ok"?"Sim, documentos em dia":m.doc==="vencido"?"Após renovar o protocolo":"Após regularizar documentos")+"</b></div>";
+      +'<div class="pp-row"><span>Pode trabalhar agora?</span><b>'+(m.doc==="ok"?"Sim, documentos em dia":m.doc==="vencido"?"Após renovar o protocolo":"Após regularizar documentos")+"</b></div>";
   }else h+=sk+lacre;
   h+="</div>";
   /* declarações (marcáveis) */
