@@ -16,7 +16,7 @@ const W=ms=>new Promise(r=>setTimeout(r,ms));
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1366,height:768}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('dialog',d=>d.accept());
 await p.goto(GAME);await W(500);
 await p.evaluate(()=>{localStorage.setItem('fronteira_lang','es');localStorage.setItem('fronteira_opts',JSON.stringify({dificuldade:'normal',timer:false,leis:true,anim:true,conseq:true}));});await p.reload();await W(800);
-const seen=new Set();const grab=async()=>{const t=await p.evaluate(()=>{const out=[];document.querySelectorAll('body *').forEach(e=>{if(e.children.length===0||e.childNodes.length){[...e.childNodes].forEach(n=>{if(n.nodeType===3&&n.nodeValue.trim())out.push(n.nodeValue.trim());});}});['title'].forEach(a=>document.querySelectorAll('['+a+']').forEach(e=>out.push(e.getAttribute(a))));return out;});t.forEach(x=>seen.add(x));};
+const seen=new Set();const grab=async()=>{const t=await p.evaluate(()=>{const out=[];document.querySelectorAll('body *').forEach(e=>{if(e.closest('script,style'))return;if(e.children.length===0||e.childNodes.length){[...e.childNodes].forEach(n=>{if(n.nodeType===3&&n.nodeValue.trim())out.push(n.nodeValue.trim());});}});['title'].forEach(a=>document.querySelectorAll('['+a+']').forEach(e=>out.push(e.getAttribute(a))));return out;});t.forEach(x=>seen.add(x));};
 await grab();
 // abre janelas do menu
 for(const f of ['menuOpcoes()','menuRecords()']){await p.evaluate(f);await W(300);await grab();await p.evaluate(()=>document.querySelectorAll('.ov:not(.off)').forEach(o=>fecharOv(o.id)));}

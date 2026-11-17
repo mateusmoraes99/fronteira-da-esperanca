@@ -847,6 +847,12 @@ body{font-family:'Inter',sans-serif;background:#f0f4f8;color:#1e293b;display:fle
 .lang-sw{display:flex;gap:8px;justify-content:center;margin:14px 0 6px;}
 .lang-sw button{font:inherit;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#e2e8f0;cursor:pointer;}
 .lang-sw button.on{background:#2563eb;border-color:#2563eb;color:#fff;}
+/* ═══ Barra de ações no celular: some ao rolar para baixo e volta ao rolar para cima ═══ */
+@media(max-width:900px){
+  #acoes{position:fixed;left:0;right:0;bottom:0;z-index:300;transition:transform .25s ease;will-change:transform;}
+  #acoes.oculta{transform:translateY(110%);}
+  #tela-caso{padding-bottom:var(--acoes-h,90px);}
+}
 </style>
 </head>
 <body>
@@ -1252,5 +1258,33 @@ body{font-family:'Inter',sans-serif;background:#f0f4f8;color:#1e293b;display:fle
   }
   document.querySelectorAll('.lang-sw button').forEach(function(bt){if(bt.getAttribute('data-l')===L)bt.classList.add('on');});
   var sc=document.createElement('script');sc.text=document.getElementById('game-'+L).textContent;document.body.appendChild(sc);
+})();
+</script>
+<script>
+/* Barra de ações no celular (telas até 900px de largura).
+   A barra fica presa no rodapé. Ao rolar o atendimento para baixo ela se esconde,
+   liberando a tela para ler os documentos; ao rolar para cima ela volta.
+   Ela também aparece sempre que: a rolagem está no topo ou no fim, ou o botão
+   "Próximo Dia" é liberado (fila vazia). No computador nada muda. */
+(function(){
+  var tc=document.getElementById('tela-caso'),ac=document.getElementById('acoes'),bn=document.getElementById('btn-next');
+  if(!tc||!ac)return;
+  var mq=window.matchMedia('(max-width:900px)'),ultimo=0;
+  function mostrar(){ac.classList.remove('oculta');}
+  // Reserva no fim do conteúdo o espaço ocupado pela barra, para nada ficar escondido atrás dela.
+  function ajustarEspaco(){document.documentElement.style.setProperty('--acoes-h',(ac.offsetHeight||90)+'px');}
+  tc.addEventListener('scroll',function(){
+    var y=tc.scrollTop;
+    if(!mq.matches){mostrar();ultimo=y;return;}
+    var noFim=y+tc.clientHeight>=tc.scrollHeight-8;
+    if(y<20||noFim||(bn&&!bn.disabled))mostrar();
+    else if(y>ultimo+6)ac.classList.add('oculta');
+    else if(y<ultimo-6)mostrar();
+    ultimo=y;
+  },{passive:true});
+  if(bn&&window.MutationObserver)new MutationObserver(function(){if(!bn.disabled)mostrar();}).observe(bn,{attributes:true,attributeFilter:['disabled']});
+  if(window.ResizeObserver)new ResizeObserver(ajustarEspaco).observe(ac);
+  window.addEventListener('resize',function(){ajustarEspaco();if(!mq.matches)mostrar();});
+  ajustarEspaco();
 })();
 </script></body></html>
