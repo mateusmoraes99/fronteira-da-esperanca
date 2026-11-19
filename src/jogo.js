@@ -202,7 +202,7 @@ const CASOS=[
   {
     nome_base:'Família Pérez',prioridade:'critico',
     historia:'Diego Pérez, 34, chegou com esposa e dois filhos após 14 dias a pé desde Pacaraima. Abandonou Caracas após ameaças de grupos armados. A filha de 6 anos apresenta sinais de desidratação severa.',
-    lei:'Lei 9.474/1997 (Lei do Refúgio) — Art. 1º: refugiado é quem sofreu grave violação de direitos humanos. Resolução Normativa CONARE nº 32/2023 — aceleração de análise para grupos vulneráveis.',
+    lei:'Lei 9.474/1997 (Lei do Refúgio), Art. 1º, III — é refugiado quem deixa o país por grave e generalizada violação de direitos humanos. Desde 2019, o CONARE reconhece essa situação na Venezuela e analisa os pedidos de venezuelanos de forma simplificada.',
     dilema:'Diego tem documentos venezuelanos mas sem visto brasileiro. A lei permite atendimento independente de documentação, mas a burocracia interna do abrigo exige registro. Atender ou aguardar triagem?',
     consequencias:{acolher:'A família recebe acolhimento. A criança se recupera. Diego consegue emprego em Boa Vista 3 semanas depois.',estabilizar:'Assistência básica prestada. A criança melhora, mas a família dorme na rua por mais 4 dias.',encaminhar:'Sem encaminhamento efetivo — família não encontra o serviço indicado. Criança agrava quadro.'},
     b:9,ab:9,t:7,pts:55,flag:'🇻🇪'
@@ -210,7 +210,7 @@ const CASOS=[
   {
     nome_base:'Sr. Montoya',prioridade:'critico',
     historia:'Carlos Montoya, 58, professor universitário de Mérida. Diabético sem acesso a insulina há 3 semanas. Veio sozinho, perdeu contato com a família durante a viagem.',
-    lei:'Res. CONARE nº 36/2024 — prioridade para idosos e portadores de doenças crônicas. Art. 196 CF/88 — saúde como direito universal.',
+    lei:'Lei 13.445/2017, Art. 4º, VIII — o migrante tem acesso à saúde pública sem discriminação pela condição migratória. Art. 196 CF/88 — saúde como direito universal.',
     dilema:'O posto de saúde está lotado. Encaminhar significa fila de 6h. Acolher no abrigo permite acesso à insulina do estoque da ONG — mas esgotaria 80% do estoque para o mês.',
     consequencias:{acolher:'Sr. Montoya recebe insulina e estabiliza. Relata sua história que vira notícia local, aumentando doações.',estabilizar:'Assistência parcial. Carlos aguarda na fila e recebe insulina tarde — complicação evitada por pouco.',encaminhar:'Encaminhado para UPA já superlotada. Carlos entra em coma hiperglicêmico. Situação crítica.'},
     b:10,ab:8,t:6,pts:58,flag:'🇻🇪'
@@ -218,7 +218,7 @@ const CASOS=[
   {
     nome_base:'Jovens Ramírez',prioridade:'critico',
     historia:'Três irmãos: Ana (16), Pablo (14) e Lúcia (8). Desacompanhados. Mãe morreu durante a travessia. Pai permaneceu na Venezuela. Encontrados por voluntários na rodoviária de Boa Vista.',
-    lei:'ECA Art. 98 — crianças em risco devem ser acolhidas imediatamente. Res. CONARE — menores desacompanhados têm proteção especial. ACNUR recomenda acolhimento imediato.',
+    lei:'ECA Art. 98 — crianças em risco devem receber medidas de proteção. Resolução Conjunta nº 1/2017 (CONANDA, CONARE, CNIg e DPU) — proteção especial a crianças e adolescentes desacompanhados ou separados. ACNUR recomenda acolhimento imediato.',
     dilema:'O abrigo está no limite de capacidade. Acolher os três irmãos significa recusar a próxima família que chegar. Separar os irmãos libera mais vagas, mas pode traumatizar ainda mais as crianças.',
     consequencias:{acolher:'Os três irmãos ficam juntos. Ana começa a estudar. Caso vira referência de boas práticas do ACNUR.',estabilizar:'Assistência prestada mas sem vaga. ONG parceira acolhe os menores com algum atraso.',encaminhar:'Crianças passam a noite em abrigo emergencial improvisado. Equipe do Conselho Tutelar acionada.'},
     b:9,ab:10,t:8,pts:60,flag:'🇻🇪'
@@ -226,7 +226,7 @@ const CASOS=[
   {
     nome_base:'Dra. Vásquez',prioridade:'grave',
     historia:'María Vásquez, 41, médica pediatra de Maracaibo. Veio com diploma mas sem revalidação. Quer trabalhar voluntariamente no abrigo enquanto aguarda processo.',
-    lei:'CFM Res. 2.330/2023 — médico estrangeiro pode atuar com autorização temporária em regiões de escassez. Lei 13.445/2017 — Art. 14: visto temporário para trabalho.',
+    lei:'Lei 13.959/2019 (Revalida) — o diploma de medicina obtido no exterior precisa ser revalidado para exercer a profissão no Brasil. Lei 13.445/2017, Art. 14 — visto temporário para trabalho.',
     dilema:'Aceitar sua ajuda voluntária sem documentação pode criar problemas legais para a ONG. Mas o abrigo está sem médico há 3 dias. O risco jurídico versus a necessidade imediata.',
     consequencias:{acolher:'María atende 12 crianças no dia. Processo de revalidação acelerado. Continua voluntária por 2 meses.',estabilizar:'Orientada mas não autorizada a atender. Faz triagem informal. Situação ambígua para a ONG.',encaminhar:'Encaminhada ao CFM. Burocracia leva meses. Abrigo continua sem médico.'},
     b:7,ab:5,t:5,pts:38,flag:'🇻🇪'
@@ -234,7 +234,7 @@ const CASOS=[
   {
     nome_base:'Sr. Gutiérrez',prioridade:'grave',
     historia:'Ramón Gutiérrez, 45, ex-policial de Caracas. Afirma ter sido perseguido pelo governo após se recusar a participar de repressão a manifestantes. Sem comprovação documental.',
-    lei:'Lei 9.474/97 Art. 1º, III — perseguição por opinião política justifica refúgio. ACNUR Handbook — testemunho é prova válida quando documentos são inacessíveis.',
+    lei:'Lei 9.474/97 Art. 1º, I — perseguição por opinião política justifica refúgio. Manual de Procedimentos do ACNUR — na falta de documentos, o relato coerente deve receber o benefício da dúvida.',
     dilema:'Sem documentos que comprovem perseguição política, o caso é juridicamente frágil. Mas negar pode enviar alguém de volta a um risco real. Benefício da dúvida ou protocolo estrito?',
     consequencias:{acolher:'Ramón é acolhido. Semanas depois, carta de perseguição de grupo político venezuelano confirma sua história.',estabilizar:'Assistência básica enquanto analisa. Ramón fica em situação irregular por 60 dias.',encaminhar:'Encaminhado ao CONARE. Aguarda 8 meses. Retorna à Venezuela por desespero.'},
     b:6,ab:5,t:4,pts:35,flag:'🇻🇪'
@@ -242,7 +242,7 @@ const CASOS=[
   {
     nome_base:'Família Flores',prioridade:'grave',
     historia:'Esperanza Flores, 29, com filho de 2 anos e grávida de 7 meses. Marido ficou preso na fronteira após confusão com documentos. Ela veio em frente para buscar ajuda.',
-    lei:'Lei 13.445/17 Art. 37 — proteção especial a gestantes. Protocolo MS 2024 — pré-natal garantido independente de status migratório. Portaria Interministerial nº 5/2017.',
+    lei:'Lei 13.445/2017, Art. 4º, VIII — acesso à saúde sem discriminação pela condição migratória, incluindo o pré-natal pelo SUS. Art. 196 CF/88 — saúde como direito universal. Lei 13.445/2017, Art. 37 — residência para reunião familiar.',
     dilema:'Esperanza precisa de pré-natal urgente e o marido está retido. Ajudar significa usar recursos de abrigo e também acionar advogado voluntário para a situação do marido — custo alto.',
     consequencias:{acolher:'Esperanza recebe pré-natal. Marido liberado em 5 dias com intervenção jurídica. Família reunida.',estabilizar:'Pré-natal garantido, mas marido continua retido por falta de acompanhamento jurídico.',encaminhar:'Encaminhada a UBS. Marido permanece retido por semanas. Esperanza entra em trabalho de parto prematuramente.'},
     b:8,ab:7,t:5,pts:42,flag:'🇻🇪'
@@ -250,7 +250,7 @@ const CASOS=[
   {
     nome_base:'Adolescente Torres',prioridade:'moderado',
     historia:'Jhonny Torres, 17, viajou sozinho de Bolívar. Diz ter 18 para evitar processos de tutela. Comportamento evasivo, marcas no corpo sugerem possível situação de violência.',
-    lei:'ECA Art. 7º — criança tem direito à proteção contra violência. Res. CONARE — menores têm proteção independente de declaração de idade. Protocolo de identificação de vítimas de tráfico.',
+    lei:'ECA Art. 5º e 7º — criança e adolescente têm direito à proteção contra violência e exploração. Resolução Conjunta nº 1/2017 (CONANDA, CONARE, CNIg e DPU) — proteção a adolescentes desacompanhados. Lei 13.344/2016 — prevenção e repressão ao tráfico de pessoas.',
     dilema:'Se Jhonny é menor, o Conselho Tutelar deve ser acionado — mas isso pode afastá-lo do sistema de proteção se ele tiver trauma institucional. Questionar a idade pode quebrar a confiança.',
     consequencias:{acolher:'Acolhido sem questionar. Psicóloga voluntária estabelece vínculo. Jhonny revela ter 16 anos e situação de tráfico.',estabilizar:'Assistência prestada com distância. Jhonny some no dia seguinte.',encaminhar:'Encaminhado a albergue geral. Sem acompanhamento especializado. Caso encerrado sem resolução.'},
     b:5,ab:5,t:4,pts:28,flag:'🇻🇪'
@@ -258,7 +258,7 @@ const CASOS=[
   {
     nome_base:'Casal Hernández',prioridade:'moderado',
     historia:'Luis e Carmen Hernández, 52 e 48, professores aposentados de Valencia. Chegaram com documentos em ordem. Querem regularizar situação mas não sabem por onde começar.',
-    lei:'Lei 13.445/17 — visto humanitário para venezuelanos. Portaria MJSP nº 666/2021 — simplificação do processo para venezuelanos. Resolução Normativa CNIg nº 1/2017.',
+    lei:'Lei 13.445/2017, Art. 14, §3º — visto e residência por acolhida humanitária. Portaria Interministerial MJSP/MRE nº 19/2021 — autorização de residência para venezuelanos.',
     dilema:'O casal tem condições de se virar, mas sem orientação adequada pode cair em armadilhas de intermediários ilegais que cobram por serviços gratuitos. Vale alocar um técnico para orientação?',
     consequencias:{acolher:'Orientação jurídica prestada. Casal regulariza situação em 2 semanas. Passam a ajudar como voluntários.',estabilizar:'Orientação básica. Casal tenta sozinho, perde tempo, mas eventualmente regulariza em 2 meses.',encaminhar:'Caem em mãos de "despachante" que cobra R$800 por serviço gratuito.'},
     b:4,ab:3,t:3,pts:22,flag:'🇻🇪'
@@ -266,7 +266,7 @@ const CASOS=[
   {
     nome_base:'Sr. Pedraza',prioridade:'estavel',
     historia:'Héctor Pedraza, 33, mecânico de Maracaibo. Chegou há 3 dias, está dormindo na rua. Tem habilidade profissional mas sem documentos para trabalhar formalmente.',
-    lei:'Res. CNIg nº 1/2017 — autorização de trabalho para venezuelanos. Portaria MJSP nº 666/2021 — emissão de Carteira de Trabalho para refugiados.',
+    lei:'Portaria Interministerial MJSP/MRE nº 19/2021 — autorização de residência para venezuelanos, que permite emitir a Carteira de Trabalho. Lei 9.474/1997, Art. 21, §1º — o protocolo de refúgio também dá direito à Carteira de Trabalho provisória.',
     dilema:'Héctor não precisa de abrigo urgente, mas sem documentação de trabalho, ficará preso na informalidade. Investir tempo de equipe nisso agora libera uma vaga de abrigo mais tarde.',
     consequencias:{acolher:'Orientado e encaminhado ao SINE. Consegue emprego formal em 3 semanas. Deixa de usar serviços do abrigo.',estabilizar:'Recebe lista de serviços. Demora 2 meses para regularizar por conta própria.',encaminhar:'Fica na informalidade. Renda baixa e irregular. Volta a pedir assistência em 1 mês.'},
     b:3,ab:3,t:2,pts:18,flag:'🇻🇪'
@@ -274,7 +274,7 @@ const CASOS=[
   {
     nome_base:'Sra. Mendoza',prioridade:'estavel',
     historia:'Patricia Mendoza, 38, cozinheira de Caracas. Chegou há 1 semana com irmã já estabelecida em Boa Vista. Precisa apenas de orientação para regularização.',
-    lei:'Portaria MJSP nº 666/2021 — processo simplificado. Art. 30 Lei 13.445/17 — residência por vínculo familiar.',
+    lei:'Portaria Interministerial MJSP/MRE nº 19/2021 — autorização de residência para venezuelanos. Lei 13.445/2017, Art. 30 e Art. 37 — residência para reunião familiar.',
     dilema:'O caso é simples e Patricia tem apoio da irmã. Mas ela relata que várias amigas estão em situação mais grave e não sabem onde buscar ajuda. Orientá-la a trazer as amigas aumenta a demanda.',
     consequencias:{acolher:'Patricia regularizada rapidamente. Traz 4 amigas que também recebem ajuda.',estabilizar:'Orientação básica. Patricia se resolve, amigas continuam sem apoio.',encaminhar:'Resolve sozinha com a irmã. Sem impacto coletivo.'},
     b:2,ab:2,t:1,pts:12,flag:'🇻🇪'
@@ -282,7 +282,7 @@ const CASOS=[
   {
     nome_base:'Família Rivas',prioridade:'estavel',
     historia:'Roberto Rivas, 40, com esposa e três filhos adolescentes. Chegaram em situação estável, com algum dinheiro economizado. Buscam orientação sobre escola para os filhos.',
-    lei:'Art. 205 CF/88 — educação é direito de todos. Lei 9.394/96 — LDB garante matrícula a crianças estrangeiras. Res. CNE/CEB nº 1/2012.',
+    lei:'Art. 205 CF/88 — educação é direito de todos. Resolução CNE/CEB nº 1/2020 — garante a matrícula de crianças migrantes e refugiadas na escola pública, mesmo sem documentos.',
     dilema:'Escola pública tem vagas, mas diretor local está relutante em aceitar as crianças por pressão de pais brasileiros. Intervir diretamente pode criar conflito com a gestão escolar local.',
     consequencias:{acolher:'Intervenção junto à escola. Crianças matriculadas. Diretor recebe capacitação sobre direitos.',estabilizar:'Carta de orientação fornecida. Família tenta negociar, consegue matrícula com dificuldade.',encaminhar:'Família busca apoio na Defensoria. Processo lento. Crianças perdem 1 mês de aula.'},
     b:2,ab:2,t:1,pts:10,flag:'🇻🇪'
@@ -291,7 +291,7 @@ const CASOS=[
   {
     nome_base:'Bebê Valentina',prioridade:'critico',
     historia:'Uma mulher desconhecida deixou uma bebê de 3 meses na entrada do abrigo com bilhete: "Me chamo Valentina. Minha mãe não consegue me cuidar. Por favor." Bebê em boa saúde, mas precisando de leite e fraldas urgente.',
-    lei:'ECA Art. 7º e 19 — criança tem direito à vida e convivência familiar. Resolução CONARE — menores abandonados recebem proteção imediata. Conselho Tutelar deve ser acionado em até 24h.',
+    lei:'ECA Art. 7º e 19 — criança tem direito à vida e à convivência familiar. ECA Art. 93 — o acolhimento de urgência deve ser comunicado ao Juiz da Infância em até 24 horas. ECA Art. 13 — o Conselho Tutelar deve ser comunicado.',
     dilema:'Acolher significa assumir responsabilidade legal pela criança até o Conselho Tutelar agir. Encaminhar diretamente pode expô-la a riscos no percurso. Cada hora conta.',
     consequencias:{acolher:'Valentina é acolhida. Mãe localizada 2 dias depois — estava em crise psicológica. Recebe apoio e reencontra a filha.',estabilizar:'Assistência de primeiros cuidados prestada. Conselho Tutelar acionado. Bebê aguarda em segurança.',encaminhar:'Transferida para UPA. Sistema lento. Bebê fica sem cuidado específico por horas.'},
     b:11,ab:9,t:8,pts:65,flag:'🇻🇪'
@@ -299,7 +299,7 @@ const CASOS=[
   {
     nome_base:'Prof. Castillo',prioridade:'grave',
     historia:'Eduardo Castillo, 62, ex-reitor de universidade em Valencia. Chegou com sua esposa Lidia, 60, que tem Alzheimer em estágio inicial. Eduardo é cuidador integral. Ambos vieram para ficar perto do filho estabelecido em Manaus — mas o filho sumiu.',
-    lei:'Res. CONARE nº 36/2024 — prioridade para idosos. Art. 230 CF/88 — proteção ao idoso. Estatuto do Idoso Art. 3º — proteção integral.',
+    lei:'Art. 230 CF/88 — proteção à pessoa idosa. Estatuto da Pessoa Idosa (Lei 10.741/2003), Art. 3º — prioridade e proteção integral. Lei 13.445/2017, Art. 4º, VIII — acesso à saúde e à assistência social.',
     dilema:'O abrigo não tem estrutura de cuidado para Alzheimer. Acolher significa improviso. Encaminhar para serviço geriátrico sobrecarrega o SUS local. Contatar o filho ausente consome tempo da equipe.',
     consequencias:{acolher:'Casal acolhido. Filho localizado em 3 dias — havia trocado de número. Família reunida em Manaus.',estabilizar:'Assistência básica. Lidia fica desorientada no ambiente novo. Eduardo exausto.',encaminhar:'Encaminhados ao CRAS. Fila de 3 semanas. Eduardo cuida sozinho sem apoio.'},
     b:7,ab:8,t:6,pts:40,flag:'🇻🇪'
@@ -307,7 +307,7 @@ const CASOS=[
   {
     nome_base:'Grupo Artistas',prioridade:'moderado',
     historia:'Cinco músicos de uma banda de rock de Caracas. Jovens entre 22 e 28 anos, saudáveis, com equipamentos. Querem trabalhar com música em Boa Vista mas não sabem como regularizar sua situação artística.',
-    lei:'Lei 13.445/17 Art. 14 — visto temporário para trabalho artístico. Portaria MJSP nº 666/2021. Convenção da UNESCO sobre diversidade cultural.',
+    lei:'Lei 13.445/2017, Art. 14 — visto temporário para trabalho. Portaria Interministerial MJSP/MRE nº 19/2021 — autorização de residência para venezuelanos. Convenção da UNESCO sobre a diversidade cultural (2005).',
     dilema:'O grupo não está em situação de vulnerabilidade imediata, mas sem orientação pode cair na informalidade ou ser explorado por promotores locais. Dedicar atenção a eles agora libera recursos no futuro.',
     consequencias:{acolher:'Orientados e regularizados. Fazem show beneficente para o abrigo. Arrecadam doações extras.',estabilizar:'Orientação básica. Se viram parcialmente, trabalham informalmente por 2 meses.',encaminhar:'Caem nas mãos de empresário que leva 60% dos cachês. Exploração disfarçada.'},
     b:3,ab:2,t:3,pts:20,flag:'🇻🇪'
@@ -315,7 +315,7 @@ const CASOS=[
   {
     nome_base:'Sra. Ochoa',prioridade:'critico',
     historia:'Luisa Ochoa, 44, com sinais claros de violência doméstica — hematomas no rosto e braços. Veio com o agressor, que afirma ser seu marido e diz que ela "caiu". Ela não fala, olha para o chão.',
-    lei:'Lei 11.340/2006 (Maria da Penha) — aplicável a estrangeiras em território brasileiro. Art. 226 CF/88. Protocolo de atendimento a vítimas de violência — isolamento imediato do agressor.',
+    lei:'Lei 11.340/2006 (Maria da Penha), Art. 2º — protege toda mulher, inclusive estrangeiras. Art. 22 — medidas protetivas de urgência, como o afastamento do agressor. Art. 226, §8º CF/88.',
     dilema:'O agressor está presente e agressivo. Separar Luisa imediatamente pode provocar reação violenta no local. Mas não agir a deixa em perigo. Cada minuto importa.',
     consequencias:{acolher:'Luisa separada com discrição. Aciona-se a delegacia da mulher. Ela revela situação de cárcere privado de 2 anos.',estabilizar:'Assistência prestada com o agressor presente. Luisa não consegue falar a verdade. Situação continua.',encaminhar:'Encaminhados juntos. Situação de violência continua sem interrupção.'},
     b:9,ab:8,t:10,pts:62,flag:'🇻🇪'
@@ -347,7 +347,7 @@ const CASOS=[
   {
     nome_base:'Jovem Díaz',prioridade:'estavel',
     historia:'Gabriela Díaz, 22, estudante de engenharia de Mérida. Veio sozinha, com laptop e documentos acadêmicos. Quer transferir seus créditos para a UFRR e solicitar bolsa para continuar os estudos.',
-    lei:'Lei 9.394/96 (LDB) — Art. 48 — revalidação de diplomas estrangeiros. Resolução CNE/CES nº 3/2016 — acesso ao ensino superior por refugiados. Portaria UFRR sobre mobilidade acadêmica.',
+    lei:'Lei 9.394/96 (LDB), Art. 48 — revalidação de diplomas estrangeiros. Resolução CNE/CES nº 3/2016 — normas de revalidação de diplomas. Lei 9.474/1997, Art. 44 — o reconhecimento de diplomas de refugiados deve ser facilitado.',
     dilema:'Gabriela não precisa de abrigo, mas precisa de orientação jurídica e académica detalhada que consome tempo de equipe. Dar atenção plena agora pode ajudar outras jovens a buscar o mesmo caminho.',
     consequencias:{acolher:'Orientada completamente. Gabriela ingressa na UFRR com aproveitamento de 60% dos créditos. Torna-se embaixadora do programa.',estabilizar:'Orientação básica. Gabriela passa 3 meses navegando a burocracia sozinha.',encaminhar:'Encaminhada à Diretoria Acadêmica da UFRR sem apoio. Processo trava por documentação.'},
     b:2,ab:2,t:3,pts:15,flag:'🇻🇪'
